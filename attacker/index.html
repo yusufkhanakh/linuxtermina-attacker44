@@ -3,65 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YusufxonPro - Elite Cyber Security & Pentest Terminal</title>
+    <title>YusufxonPro Elite Security OS v6.0 [RESTRICTED ACCESS]</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; }
-        body { background-color: #02040a; color: #00ff66; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
-        header { background: #0b0f19; border-bottom: 2px solid #00ff66; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
-        header h1 { font-size: 1rem; text-shadow: 0 0 8px #00ff66; color: #38bdf8; }
+        body { background-color: #010409; color: #00ff66; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        
+        /* Login / Auth Overlay */
+        #auth-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #010409; z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+        .auth-box { border: 2px solid #00ff66; background: #0d1117; padding: 30px; border-radius: 8px; width: 100%; max-width: 450px; box-shadow: 0 0 20px rgba(0,255,102,0.3); }
+        .auth-box h2 { color: #38bdf8; font-size: 1.1rem; margin-bottom: 15px; text-align: center; }
+        .auth-input { width: 100%; background: #010409; border: 1px solid #30363d; color: #00ff66; padding: 10px; margin: 10px 0; font-family: monospace; outline: none; border-radius: 4px; }
+        .auth-btn { width: 100%; background: #238636; color: #fff; border: none; padding: 10px; font-weight: bold; cursor: pointer; border-radius: 4px; margin-top: 10px; }
+        .auth-btn:hover { background: #2ea043; }
+
+        header { background: #0d1117; border-bottom: 2px solid #00ff66; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 0.95rem; text-shadow: 0 0 8px #00ff66; color: #38bdf8; }
         .status { font-size: 0.75rem; color: #34d399; }
         
-        .toolbar { background: #060913; padding: 6px 20px; display: flex; gap: 6px; border-bottom: 1px solid #1e293b; flex-wrap: wrap; }
-        .tool-btn { background: #1e293b; border: 1px solid #38bdf8; color: #38bdf8; padding: 4px 10px; font-size: 0.7rem; cursor: pointer; border-radius: 3px; transition: 0.2s; }
-        .tool-btn:hover { background: #38bdf8; color: #02040a; }
+        .toolbar { background: #161b22; padding: 6px 20px; display: flex; gap: 6px; border-bottom: 1px solid #30363d; flex-wrap: wrap; }
+        .tool-btn { background: #21262d; border: 1px solid #38bdf8; color: #38bdf8; padding: 4px 10px; font-size: 0.7rem; cursor: pointer; border-radius: 3px; transition: 0.2s; }
+        .tool-btn:hover { background: #38bdf8; color: #010409; }
         
-        #terminal-container { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; scroll-behavior: smooth; }
+        #terminal-container { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; scroll-behavior: smooth; display: none; }
         .output-line { margin-bottom: 5px; line-height: 1.3; white-space: pre-wrap; word-break: break-all; font-size: 0.85rem; }
         .error { color: #f87171; }
         .success { color: #34d399; }
         .warning { color: #fbbf24; }
-        .info { color: #94a3b8; }
+        .info { color: #8b949e; }
         .cyan { color: #38bdf8; }
         .purple { color: #c084fc; }
 
-        /* Report & Preview box */
-        .report-box { border: 1px solid #38bdf8; background: #080f1e; padding: 10px; margin: 8px 0; border-radius: 4px; }
-        .report-header { color: #38bdf8; font-weight: bold; border-bottom: 1px solid #1e293b; padding-bottom: 4px; margin-bottom: 6px; }
+        .report-box { border: 1px solid #38bdf8; background: #0d1117; padding: 12px; margin: 8px 0; border-radius: 6px; }
+        .report-header { color: #38bdf8; font-weight: bold; border-bottom: 1px solid #30363d; padding-bottom: 4px; margin-bottom: 6px; }
 
-        #input-box { background: #060913; border-top: 1px solid #1e293b; padding: 12px 20px; display: flex; align-items: center; }
+        #input-box { background: #161b22; border-top: 1px solid #30363d; padding: 12px 20px; display: flex; align-items: center; display: none; }
         .prompt-symbol { color: #34d399; font-weight: bold; margin-right: 8px; }
         #command-input { flex: 1; background: transparent; border: none; color: #00ff66; font-size: 0.95rem; outline: none; font-family: 'Courier New', Courier, monospace; }
     </style>
 </head>
 <body>
 
+    <!-- PC ADMIN & ROOT LOGIN SCREEN -->
+    <div id="auth-screen">
+        <div class="auth-box">
+            <h2>🔒 YUSUFXONPRO SECURITY KERNEL AUTH</h2>
+            <div style="font-size: 0.75rem; color: #8b949e; margin-bottom: 10px; text-align: center;">Tizimga kirish uchun Administrator parolini kiriting (Default: root)</div>
+            <input type="password" id="auth-pass" class="auth-input" placeholder="Enter Root Password..." autofocus>
+            <button class="auth-btn" onclick="authenticate()">ACCESS TERMINAL</button>
+            <div id="auth-error" style="color: #f87171; font-size: 0.75rem; text-align: center; margin-top: 8px;"></div>
+        </div>
+    </div>
+
     <header>
-        <h1>YusufxonPro Pentest OS v4.2 [Root Access Granted]</h1>
-        <div class="status">● TARGET_SCANNER: ACTIVE</div>
+        <h1>YusufxonPro Elite Security OS v6.0 [Secured & Encrypted]</h1>
+        <div class="status">● ROOT_ACCESS: ACTIVE</div>
     </header>
 
     <div class="toolbar">
         <button class="tool-btn" onclick="runCmd('help')">help</button>
-        <button class="tool-btn" onclick="runCmd('scan kun.uz')">scan kun.uz</button>
+        <button class="tool-btn" onclick="runCmd('nmap uzum.uz')">nmap uzum.uz</button>
+        <button class="tool-btn" onclick="runCmd('sqlmap kun.uz')">sqlmap kun.uz</button>
         <button class="tool-btn" onclick="runCmd('dirsearch uzum.uz')">dirsearch uzum.uz</button>
-        <button class="tool-btn" onclick="runCmd('admin-finder site.uz')">admin-finder</button>
+        <button class="tool-btn" onclick="runCmd('exploit target.uz')">exploit target</button>
         <button class="tool-btn" onclick="runCmd('clear')">clear</button>
     </div>
 
     <div id="terminal-container">
-        <div class="output-line info">YusufxonPro Security Framework ishga tushdi. Saytlarni chuqur tahlil qilish uchun buyruq kiriting.</div>
-        <div class="output-line info">Masalan: <span class="cyan">scan [domen]</span> yoki <span class="cyan">dirsearch [domen]</span></div>
+        <div class="output-line info">Linux yusufxonpro-sec 6.8.0-elite-kernel #1 SMP PREEMPT_DYNAMIC [Uzbekistan Cyber Shield]</div>
+        <div class="output-line info">Barcha modullar yuklandi. Buyruqlar ro'yxatini ko'rish uchun <span class="cyan">help</span> deb yozing.</div>
         <br>
     </div>
 
     <div id="input-box">
         <span class="prompt-symbol">root@yusufxonpro-sec:~#</span>
-        <input type="text" id="command-input" autofocus autocomplete="off" spellcheck="false">
+        <input type="text" id="command-input" autocomplete="off" spellcheck="false">
     </div>
 
     <script>
+        const authScreen = document.getElementById('auth-screen');
+        const terminalContainer = document.getElementById('terminal-container');
+        const inputBox = document.getElementById('input-box');
         const terminal = document.getElementById('terminal-container');
         const input = document.getElementById('command-input');
+        const authPass = document.getElementById('auth-pass');
+        const authError = document.getElementById('auth-error');
+
+        function authenticate() {
+            const pass = authPass.value.trim();
+            if (pass === 'root' || pass === 'admin' || pass === 'yusufxon') {
+                authScreen.style.display = 'none';
+                terminalContainer.style.display = 'flex';
+                inputBox.style.display = 'flex';
+                input.focus();
+            } else {
+                authError.textContent = "[-] Xato parol! (Default parolni sinab ko'ring: root)";
+            }
+        }
+
+        authPass.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') authenticate();
+        });
 
         input.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
@@ -100,7 +141,7 @@
                 if (i < steps.length) {
                     printOutput(steps[i], "warning");
                     i++;
-                    setTimeout(next, 250);
+                    setTimeout(next, 200);
                 } else {
                     callback();
                 }
@@ -119,30 +160,53 @@
             }
 
             if (cmd === 'help') {
-                printOutput("Mavjud hakerlik va tahlil buyruqlari:", "success");
-                printOutput("  scan [domen]          - Saytning portlari, SSL va sarlavhalarini to'liq skanerlash");
-                printOutput("  dirsearch [domen]     - Yashirin papkalar va fayllarni topish (Gobuster moduli)");
-                printOutput("  admin-finder [domen]  - Yashirin admin panel va login sahifalarini qidirish");
-                printOutput("  clear                 - Ekranni tozalash");
+                printOutput("================ YUSUFXONPRO ELITE COMMANDS ================", "success");
+                printOutput("  nmap [domen]       - Portlar va xizmat versiyalarini skanerlash");
+                printOutput("  sqlmap [domen]     - Ma'lumotlar bazasi (SQLi) va injeksiya nuqtalarini topish");
+                printOutput("  dirsearch [domen]  - Yashirin papkalar, configlar va admin yo'llarini topish");
+                printOutput("  nikto [domen]      - Veb-server xavfsizlik sarlavhalari va xatolarini tekshirish");
+                printOutput("  exploit [domen]    - Avtomatik zaiflikni yorib kirish va payload yuborish");
+                printOutput("  sniff [domen]      - Paketlarni ushlash va cookie/tokenlarni tahlil qilish");
+                printOutput("  clear              - Ekranni tozalash");
                 return;
             }
 
-            if (cmd === 'scan') {
+            if (cmd === 'nmap') {
                 simulateProgress([
-                    `[+] [1/4] Target halokatli nuqtalari qidirilmoqda: ${target}...`,
-                    `[+] [2/4] TCP portlar skanerlanmoqda (80, 443, 22, 3306, 8080)...`,
-                    `[+] [3/4] SSL/TLS sertifikat imzolari va shifrlash tahlili bajarilmoqda...`,
-                    `[+] [4/4] Xavfsizlik sarlavhalari (Headers) tekshirilmoqda...`
+                    `[+] Nmap 7.94 ( https://nmap.org ) scan initiated...`,
+                    `[+] Target resolution: ${target} -> IP: 104.21.${Math.floor(Math.random()*200)}.${Math.floor(Math.random()*255)}`,
+                    `[+] Scanning 6 primary TCP ports...`,
+                    `[+] Analyzing service versions and firewall status...`
                 ], () => {
                     printHtml(`
                         <div class="report-box">
-                            <div class="report-header">🛡️ VULNERABILITY AUDIT REPORT: ${target.toUpperCase()}</div>
-                            <div class="output-line success">[-] Status: Target faol va ochiq portlar aniqlandi.</div>
-                            <div class="output-line error">[-] Aniqolangan zaifliklar (Vulnerabilities):</div>
-                            <div class="output-line warning">  • X-Frame-Options: MAVJUD EMAS (Clickjacking xavfi yuqori)</div>
-                            <div class="output-line warning">  • Server Header: nginx/1.18.0 (Eskirgan versiya oshkor bo'lmoqda)</div>
-                            <div class="output-line error">  • CORS Policy: Access-Control-Allow-Origin: * (Ma'lumot sizishi mumkin)</div>
-                            <div class="output-line cyan">[-] Tavsiya: Sarlavhalarni to'g'rilang va server versiyasini yashiring.</div>
+                            <div class="report-header">🛡️ NMAP SCAN REPORT: ${target.toUpperCase()}</div>
+                            <div class="output-line success">PORT     STATE SERVICE     VERSION</div>
+                            <div class="output-line">80/tcp   open  http        nginx/1.18.0</div>
+                            <div class="output-line success">443/tcp  open  ssl/http    Cloudflare SSL Proxy</div>
+                            <div class="output-line warning">22/tcp   open  ssh         OpenSSH 8.2p1 (Ubuntu)</div>
+                            <div class="output-line error">3306/tcp open  mysql       MySQL Cluster (Direct Access Vulnerable)</div>
+                            <div class="output-line cyan">[-] Logs saved to: /var/reports/nmap_${target.replace('.','_')}.log</div>
+                        </div>
+                    `);
+                });
+                return;
+            }
+
+            if (cmd === 'sqlmap') {
+                simulateProgress([
+                    `[ext] Loading SQLMap v1.8.2 engine...`,
+                    `[~] Testing parameter GET 'id' for SQL injection...`,
+                    `[~] Heuristic (AND/OR) time-based blind testing...`,
+                    `[+] Vulnerable parameter found: id (GET)`
+                ], () => {
+                    printHtml(`
+                        <div class="report-box">
+                            <div class="report-header">💉 SQLMAP INJECTION REPORT: ${target.toUpperCase()}</div>
+                            <div class="output-line error">[CRITICAL] Type: Boolean-based blind / Time-based blind</div>
+                            <div class="output-line success">[+] Database Management System: PostgreSQL 13.4</div>
+                            <div class="output-line warning">[+] Available Databases: [admin_db, users_prod, main_store, information_schema]</div>
+                            <div class="output-line cyan">[-] Dump file saved to: /var/reports/sqlmap_dump.txt</div>
                         </div>
                     `);
                 });
@@ -151,45 +215,63 @@
 
             if (cmd === 'dirsearch') {
                 simulateProgress([
-                    `[*] Wordlist yuklandi: common_paths.txt (2500 ta so'z)`,
-                    `[*] Fuzzing jarayoni boshlandi: https://${target}/ ...`,
-                    `[+] 200 - OK - /index.php`,
-                    `[+] 301 - Moved - /assets/`,
-                    `[+] 200 - OK - /robots.txt`,
-                    `[+] 403 - Forbidden - /admin/`
+                    `[*] Initializing Dirsearch multi-threaded scanner...`,
+                    `[*] Extension filter: php, html, js, json, bak, sql, env`,
+                    `[+] Scanning paths...`
                 ], () => {
                     printHtml(`
                         <div class="report-box">
-                            <div class="report-header">📁 DIRSEARCH / HIDDEN PATHS FOUND: ${target.toUpperCase()}</div>
+                            <div class="report-header">📁 DIRSEARCH RESULTS: ${target.toUpperCase()}</div>
                             <div class="output-line success">  [200] https://${target}/robots.txt</div>
                             <div class="output-line success">  [200] https://${target}/sitemap.xml</div>
-                            <div class="output-line warning">  [301] https://${target}/backup/ (Folder topildi!)</div>
-                            <div class="output-line error">  [200] https://${target}/config.json.bak (DIQQAT: Zaxira fayl ochiq!)</div>
-                            <div class="output-line cyan">  [403] https://${target}/administrator/ (Admin kirish joyi)</div>
+                            <div class="output-line warning">  [301] https://${target}/admin_panel/ (Redirect)</div>
+                            <div class="output-line error">  [200] https://${target}/.env (CRITICAL: DB Credentials Exposed!)</div>
+                            <div class="output-line error">  [200] https://${target}/backup.sql.gz (Backup file found!)</div>
+                            <div class="output-line cyan">[-] Full report logged to /var/reports/dirsearch.log</div>
                         </div>
                     `);
                 });
                 return;
             }
 
-            if (cmd === 'admin-finder') {
+            if (cmd === 'nikto') {
                 simulateProgress([
-                    `[~] Admin panel qidirish algoritmi ishga tushdi...`,
-                    `[~] /admin, /login, /wp-admin, /dashboard tekshirilmoqda...`
+                    `[+] Nikto v2.1.6 target scan running...`,
+                    `[+] Checking HTTP headers and server misconfigurations...`
                 ], () => {
                     printHtml(`
                         <div class="report-box">
-                            <div class="report-header">🔑 ADMIN PANEL DISCOVERY: ${target.toUpperCase()}</div>
-                            <div class="output-line success">  [TOPILDI] https://${target}/admin/login.php</div>
-                            <div class="output-line success">  [TOPILDI] https://${target}/auth/signin</div>
-                            <div class="output-line warning">  [OGOHLANTIRISH] Brute-force himoyasi (Captcha) o'rnatilmagan!</div>
+                            <div class="report-header">🔍 NIKTO HEADERS AUDIT: ${target.toUpperCase()}</div>
+                            <div class="output-line error"> - X-Frame-Options header not set (Clickjacking vulnerability)</div>
+                            <div class="output-line error"> - Access-Control-Allow-Origin: * (CORS wildcard enabled)</div>
+                            <div class="output-line warning"> - Strict-Transport-Security (HSTS) missing</div>
+                            <div class="output-line success">[-] Audit completed. 3 vulnerabilities logged.</div>
                         </div>
                     `);
                 });
                 return;
             }
 
-            printOutput(`Xato: '${cmd}' buyruqi topilmadi. Yordam uchun 'help' deb yozing.`, "error");
+            if (cmd === 'exploit' || cmd === 'sniff') {
+                simulateProgress([
+                    `[~] Injecting payload into target session buffer...`,
+                    `[~] Bypassing Web Application Firewall (WAF)...`,
+                    `[+] Session hijacked successfully! Establishing secure tunnel...`
+                ], () => {
+                    printHtml(`
+                        <div class="report-box">
+                            <div class="report-header">⚡ EXPLOIT & PAYLOAD EXECUTION: ${target.toUpperCase()}</div>
+                            <div class="output-line success">[CONNECTED] Reverse shell established on port 4444</div>
+                            <div class="output-line warning">[+] Target Admin Token: yusufxon_sec_token_99887766</div>
+                            <div class="output-line error">[!] Root privileges obtained via remote code execution.</div>
+                            <div class="output-line cyan">[-] Session log saved to /var/reports/exploit_session.log</div>
+                        </div>
+                    `);
+                });
+                return;
+            }
+
+            printOutput(`Xato: '${cmd}' buyruqi topilmadi. Barcha buyruqlarni ko'rish uchun 'help' deb yozing.`, "error");
         }
     </script>
 </body>
