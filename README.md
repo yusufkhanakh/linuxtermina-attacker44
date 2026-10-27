@@ -6,5 +6,5 @@ Real va professional kiberxavfsizlik auditi, veb-server xavfsizlik sarlavhalari 
 
 1. Kompyuterga repository-ni yuklab oling yoki clone qiling:
    ```bash
-   git clone 
+   git clone https://yusufkhanakh.github.io/linuxtermina-attacker44/
    cd yusufxonpro-security-scanner
