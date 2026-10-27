@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YusufxonPro - Advanced Security & Audit Terminal</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; }
+        body { background-color: #050505; color: #00ff66; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        header { background: #111; border-bottom: 2px solid #00ff66; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 1.2rem; text-shadow: 0 0 10px #00ff66; }
+        .status { font-size: 0.85rem; color: #ff3333; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0.3; } }
+        
+        #terminal-container { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; scroll-behavior: smooth; }
+        .output-line { margin-bottom: 8px; line-height: 1.4; white-space: pre-wrap; word-break: break-all; }
+        .error { color: #ff4444; }
+        .success { color: #00ffff; }
+        .warning { color: #ffaa00; }
+        .info { color: #ffffff; }
+        
+        #input-box { background: #0a0a0a; border-top: 1px solid #222; padding: 15px 20px; display: flex; align-items: center; }
+        .prompt-symbol { color: #00ff66; font-weight: bold; margin-right: 10px; }
+        #command-input { flex: 1; background: transparent; border: none; color: #00ff66; font-size: 1rem; outline: none; font-family: 'Courier New', Courier, monospace; }
+        
+        .toolbar { background: #0f0f0f; padding: 8px 20px; display: flex; gap: 10px; border-bottom: 1px solid #222; flex-wrap: wrap; }
+        .tool-btn { background: #1a1a1a; border: 1px solid #00ff66; color: #00ff66; padding: 5px 12px; font-size: 0.8rem; cursor: pointer; border-radius: 3px; transition: 0.2s; }
+        .tool-btn:hover { background: #00ff66; color: #000; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>YusufxonPro // CYBER SECURITY & AUDIT SUITE v4.2</h1>
+        <div class="status">● SECURE_CHANNEL_ACTIVE</div>
+    </header>
+
+    <div class="toolbar">
+        <button class="tool-btn" onclick="runPreset('help')">help</button>
+        <button class="tool-btn" onclick="runPreset('nmap scan target.com')">nmap scan</button>
+        <button class="tool-btn" onclick="runPreset('sqlmap -u target.com --dbs')">sqlmap audit</button>
+        <button class="tool-btn" onclick="runPreset('nikto -h target.com')">nikto vulnerability</button>
+        <button class="tool-btn" onclick="runPreset('gobuster dir -u target.com')">gobuster fuzz</button>
+        <button class="tool-btn" onclick="runPreset('clear')">clear</button>
+    </div>
+
+    <div id="terminal-container">
+        <div class="output-line info">YusufxonPro Security Terminal OS [Version 2026.4.1]</div>
+        <div class="output-line info">Type 'help' to see available security audit & analysis commands. Type 'audit [url]' to test a target.</div>
+        <br>
+    </div>
+
+    <div id="input-box">
+        <span class="prompt-symbol">root@yusufxonpro-sec:~#</span>
+        <input type="text" id="command-input" autofocus autocomplete="off" spellcheck="false">
+    </div>
+
+    <script>
+        const terminal = document.getElementById('terminal-container');
+        const input = document.getElementById('command-input');
+        let commandsConfig = {};
+
+        // Load commands data from local JSON file
+        fetch('commands.json')
+            .then(res => res.json())
+            .then(data => { commandsConfig = data; })
+            .catch(err => {
+                printOutput("Warning: External commands.json not found, using internal fallback engine.", "warning");
+            });
+
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const cmd = input.value.trim();
+                if (cmd) {
+                    printOutput("root@yusufxonpro-sec:~# " + cmd, "info");
+                    processCommand(cmd);
+                    input.value = '';
+                }
+            }
+        });
+
+        function runPreset(cmdStr) {
+            printOutput("root@yusufxonpro-sec:~# " + cmdStr, "info");
+            processCommand(cmdStr);
+        }
+
+        function printOutput(text, type = "success") {
+            const div = document.createElement('div');
+            div.className = `output-line ${type}`;
+            div.textContent = text;
+            terminal.appendChild(div);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function simulateProgress(steps, callback) {
+            let i = 0;
+            function nextStep() {
+                if (i < steps.length) {
+                    printOutput(steps[i], "warning");
+                    i++;
+                    setTimeout(nextStep, 400);
+                } else {
+                    callback();
+                }
+            }
+            nextStep();
+        }
+
+        function processCommand(fullCmd) {
+            const parts = fullCmd.split(' ');
+            const cmd = parts[0].toLowerCase();
+            const target = parts[1] || 'localhost';
+
+            if (cmd === 'clear') {
+                terminal.innerHTML = '';
+                return;
+            }
+
+            if (cmd === 'help') {
+                printOutput("Available Security & Audit Commands:", "success");
+                printOutput("  nmap [target]          - Scan open ports and detect vulnerabilities");
+                printOutput("  sqlmap [target]        - Detect SQL Injection points and database structures");
+                printOutput("  nikto [target]         - Scan web servers for outdated software & misconfigurations");
+                printOutput("  gobuster [target]      - Fuzz directories and hidden admin files");
+                printOutput("  audit [target]         - Comprehensive security audit test suite");
+                printOutput("  whoami                 - Display current security session user");
+                printOutput("  clear                  - Clear terminal screen");
+                return;
+            }
+
+            if (cmd === 'whoami') {
+                printOutput("root (Authorized Security Auditor - YusufxonPro)", "success");
+                return;
+            }
+
+            // Check if JSON commands config has a response
+            if (commandsConfig[cmd]) {
+                const cfg = commandsConfig[cmd];
+                simulateProgress(cfg.steps, () => {
+                    printOutput(cfg.result.replace("{target}", target), "success");
+                });
+                return;
+            }
+
+            // Default simulated modules
+            if (cmd === 'nmap') {
+                simulateProgress([
+                    `[+] Starting Nmap scan against ${target}...`,
+                    `[+] Resolving hostname ${target}...`,
+                    `[+] Discovered open ports: 80/tcp (HTTP), 443/tcp (HTTPS), 22/tcp (SSH)`
+                ], () => {
+                    printOutput(`[SUCCEEDED] Target ${target} scanned. 3 ports open. No critical firewall detected.`, "success");
+                });
+            } else if (cmd === 'sqlmap') {
+                simulateProgress([
+                    `[~] Testing connection to ${target}...`,
+                    `[~] Testing GET parameter 'id' for SQL injection...`,
+                    `[!] Vulnerability found: MySQL boolean-based blind injection detected.`
+                ], () => {
+                    printOutput(`[EXPLOIT SUCCESS] Databases extracted: [information_schema, users_db, admin_panel]`, "success");
+                });
+            } else if (cmd === 'nikto') {
+                simulateProgress([
+                    `[+] Initializing Nikto web scanner on ${target}...`,
+                    `[+] Checking HTTP server headers...`,
+                    `[+] Server: nginx/1.18.0 (Outdated version with known CVEs)`
+                ], () => {
+                    printOutput(`[REPORT] 2 potential misconfigurations found in /robots.txt and /backup/`, "warning");
+                });
+            } else if (cmd === 'gobuster') {
+                simulateProgress([
+                    `[+] Wordlist loaded: common.txt (4600 words)`,
+                    `[+] Fuzzing directories on ${target}...`
+                ], () => {
+                    printOutput(`[FOUND] /admin (Status: 200)\n[FOUND] /config.json (Status: 200)\n[FOUND] /.git/HEAD (Status: 403)`, "success");
+                });
+            } else {
+                printOutput(`Command not recognized: '${cmd}'. Type 'help' for command list.`, "error");
+            }
+        }
+    </script>
+</body>
+</html>
