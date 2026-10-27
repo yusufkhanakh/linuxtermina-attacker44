@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YusufxonPro - Advanced Cyber Audit & Attack Simulation Terminal</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; }
+        body { background-color: #030303; color: #00ff66; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        header { background: #0c0c0c; border-bottom: 2px solid #00ff66; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 1.1rem; text-shadow: 0 0 8px #00ff66; }
+        .status { font-size: 0.8rem; color: #00ffff; }
+        
+        .toolbar { background: #080808; padding: 6px 20px; display: flex; gap: 8px; border-bottom: 1px solid #1a1a1a; flex-wrap: wrap; }
+        .tool-btn { background: #121212; border: 1px solid #00ff66; color: #00ff66; padding: 4px 10px; font-size: 0.75rem; cursor: pointer; border-radius: 3px; transition: 0.2s; }
+        .tool-btn:hover { background: #00ff66; color: #000; }
+        
+        #terminal-container { flex: 1; padding: 15px 20px; overflow-y: auto; display: flex; flex-direction: column; scroll-behavior: smooth; }
+        .output-line { margin-bottom: 6px; line-height: 1.35; white-space: pre-wrap; word-break: break-all; font-size: 0.9rem; }
+        .error { color: #ff3333; }
+        .success { color: #00ffff; }
+        .warning { color: #ffbb00; }
+        .info { color: #ffffff; }
+        .highlight { color: #00ff66; font-weight: bold; }
+        
+        #input-box { background: #080808; border-top: 1px solid #222; padding: 12px 20px; display: flex; align-items: center; }
+        .prompt-symbol { color: #00ff66; font-weight: bold; margin-right: 10px; font-size: 0.9rem; }
+        #command-input { flex: 1; background: transparent; border: none; color: #00ff66; font-size: 0.95rem; outline: none; font-family: 'Courier New', Courier, monospace; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>YusufxonPro // LINUX SECURITY AUDIT & TARGET ATTACK SUITE v5.0</h1>
+        <div class="status">● ROOT_PRIVILEGES_ACTIVE</div>
+    </header>
+
+    <div class="toolbar">
+        <button class="tool-btn" onclick="runPreset('help')">yordam (help)</button>
+        <button class="tool-btn" onclick="runPreset('attack example.com')">target attack</button>
+        <button class="tool-btn" onclick="runPreset('nmap scan target.com')">nmap port scan</button>
+        <button class="tool-btn" onclick="runPreset('sqlmap -u target.com --dbs')">sql injection</button>
+        <button class="tool-btn" onclick="runPreset('nikto -h target.com')">vulnerability audit</button>
+        <button class="tool-btn" onclick="runPreset('dirb http://target.com')">directory fuzz</button>
+        <button class="tool-btn" onclick="runPreset('clear')">ekranni tozalash</button>
+    </div>
+
+    <div id="terminal-container">
+        <div class="output-line info">Linux Security Kernel 6.8.0-yusufxonpro x86_64 [O'zbekiston Kiberxavfsizlik Muhiti]</div>
+        <div class="output-line info">Saytlarni tahlil qilish va zaifliklarni aniqlash uchun buyruq kiriting. Masalan: <span class="highlight">attack uzum.uz</span> yoki <span class="highlight">help</span></div>
+        <br>
+    </div>
+
+    <div id="input-box">
+        <span class="prompt-symbol">root@yusufxonpro-sec:~#</span>
+        <input type="text" id="command-input" autofocus autocomplete="off" spellcheck="false">
+    </div>
+
+    <script>
+        const terminal = document.getElementById('terminal-container');
+        const input = document.getElementById('command-input');
+
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const cmd = input.value.trim();
+                if (cmd) {
+                    printOutput("root@yusufxonpro-sec:~# " + cmd, "info");
+                    processCommand(cmd);
+                    input.value = '';
+                }
+            }
+        });
+
+        function runPreset(cmdStr) {
+            printOutput("root@yusufxonpro-sec:~# " + cmdStr, "info");
+            processCommand(cmdStr);
+        }
+
+        function printOutput(text, type = "success") {
+            const div = document.createElement('div');
+            div.className = `output-line ${type}`;
+            div.textContent = text;
+            terminal.appendChild(div);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        function simulateProgress(steps, callback) {
+            let i = 0;
+            function nextStep() {
+                if (i < steps.length) {
+                    printOutput(steps[i], "warning");
+                    i++;
+                    setTimeout(nextStep, 350);
+                } else {
+                    callback();
+                }
+            }
+            nextStep();
+        }
+
+        function processCommand(fullCmd) {
+            const parts = fullCmd.split(' ');
+            const cmd = parts[0].toLowerCase();
+            const target = parts[1] || 'target-domain.com';
+
+            if (cmd === 'clear') {
+                terminal.innerHTML = '';
+                return;
+            }
+
+            if (cmd === 'help') {
+                printOutput("Mavjud xavfsizlik va hujum buyruqlari (O'zbek tilida):", "success");
+                printOutput("  attack [domen]         - Ko'rsatilgan saytga to'liq hujum va zaiflik auditini boshlash");
+                printOutput("  nmap [domen]           - Ochiq portlar va xizmat versiyalarini skanerlash");
+                printOutput("  sqlmap [domen]         - Ma'lumotlar bazasidan SQL injection qidirish");
+                printOutput("  nikto [domen]          - Veb-server xavfsizlik kamchiliklarini tekshirish");
+                printOutput("  dirb [url]             - Yashirin kataloglar va fayllarni qidirish");
+                printOutput("  ls /var/reports        - Saqlangan hisobotlar papkasini ko'rish");
+                printOutput("  clear                  - Terminalni tozalash");
+                return;
+            }
+
+            if (cmd === 'ls' && parts[1]?.includes('reports')) {
+                printOutput("[SAVED REPORTS FOLDER] /var/reports/:\n - target_audit_report.txt\n - sqlmap_dump_tables.sql\n - screenshot_target.png\n - vulnerability_matrix.json", "success");
+                return;
+            }
+
+            if (cmd === 'attack') {
+                simulateProgress([
+                    `[+] [1/5] Target aniqlandi: ${target} - DNS va IP manzillar yechilmoqda...`,
+                    `[+] [2/5] Nmap orqali ochiq portlar (80, 443, 22, 3306) tekshirilmoqda...`,
+                    `[+] [3/5] HTTP sarlavhalari (Headers) va SSL sertifikatlari tahlil qilinmoqda...`,
+                    `[+] [4/5] SQL injection va XSS zaiflik nuqtalari qidirilmoqda...`,
+                    `[+] [5/5] Natijalar /var/reports/ papkasiga log va rasm (png) sifatida yozilmoqda...`
+                ], () => {
+                    printOutput(`\n[TAHLIL NATIJASI - ${target.toUpperCase()}]`, "success");
+                    printOutput(` - Holat: Sayt himoyasi o'rtacha darajada.`, "warning");
+                    printOutput(` - Topilgan zaifliklar:`, "error");
+                    printOutput(`   1. X-Frame-Options himoyasi mavjud emas (Clickjacking xavfi).`);
+                    printOutput(`   2. Eskirgan server versiyasi (Nginx/1.18.0) aniqlandi.`);
+                    printOutput(`   3. /robots.txt faylida yashirin admin papkalari oshkor bo'lgan.`);
+                    printOutput(` - Saqlangan papka: /var/reports/target_audit_report.txt va screenshot_target.png`, "success");
+                });
+                return;
+            }
+
+            if (cmd === 'nmap') {
+                simulateProgress([
+                    `[+] Nmap 7.94 skaneri ishga tushirildi (${target})...`,
+                    `[+] TCP portlari tekshirilmoqda...`
+                ], () => {
+                    printOutput(`PORT     STATE SERVICE\n80/tcp   open  http\n443/tcp  open  https\n3306/tcp open  mysql\n[NATIJA] Skanerlash yakunlandi.`, "success");
+                });
+            } else if (cmd === 'sqlmap') {
+                simulateProgress([
+                    `[~] SQLMap tamper va payloadlar yuklanmoqda...`,
+                    `[~] GET va POST parametrlarida so'rovlar sinovdan o'tkazilmoqda...`
+                ], () => {
+                    printOutput(`[ZAIFLIK TOPILDI] Parametr 'id' SQL injection ga moyil! Ma'lumotlar bazasi nomi: 'db_production'. Papkaga yuklandi.`, "success");
+                });
+            } else if (cmd === 'nikto') {
+                simulateProgress([
+                    `[+] Nikto veb-skaneri ishga tushdi: ${target}...`,
+                    `[+] 6000 dan ortiq xavfli fayllar tekshirilmoqda...`
+                ], () => {
+                    printOutput(`[OGOHLANTIRISH] Server katalog indeksatsiyasi (Directory Listing) yoqilgan!`, "error");
+                });
+            } else if (cmd === 'dirb') {
+                simulateProgress([
+                    `[+] Wordlist (common.txt) yuklandi...`,
+                    `[+] URL manzillariga so'rovlar yuborilmoqda...`
+                ], () => {
+                    printOutput(`[TOPILDI] http://${target}/admin/login.php (Code: 200)\n[TOPILDI] http://${target}/backup.sql (Code: 200)`, "success");
+                });
+            } else {
+                printOutput(`Xato: '${cmd}' buyruqi topilmadi. Barcha buyruqlarni ko'rish uchun 'help' deb yozing.`, "error");
+            }
+        }
+    </script>
+</body>
+</html>
