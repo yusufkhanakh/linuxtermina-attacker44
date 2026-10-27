@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YusufxonPro Elite Security OS v7.0 [Auto-Download & 10+ Commands]</title>
+    <title>YusufxonPro Elite Security OS v7.5 [O'zbekcha Versiya]</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; }
         body { background-color: #010409; color: #00ff66; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
@@ -50,33 +50,32 @@
     <!-- AUTH SCREEN -->
     <div id="auth-screen">
         <div class="auth-box">
-            <h2>🔒 YUSUFXONPRO SECURITY KERNEL</h2>
+            <h2>🔒 YUSUFXONPRO XAVFSIZLIK TIZIMI</h2>
             <div style="font-size: 0.75rem; color: #8b949e; margin-bottom: 10px; text-align: center;">Administrator parolini kiriting (Parol: root)</div>
-            <input type="password" id="auth-pass" class="auth-input" placeholder="Enter Root Password..." autofocus>
-            <button class="auth-btn" onclick="authenticate()">ACCESS TERMINAL</button>
+            <input type="password" id="auth-pass" class="auth-input" placeholder="Parolni kiriting..." autofocus>
+            <button class="auth-btn" onclick="authenticate()">TIZIMGA KIRISH</button>
             <div id="auth-error" style="color: #f87171; font-size: 0.75rem; text-align: center; margin-top: 8px;"></div>
         </div>
     </div>
 
     <header>
-        <h1>YusufxonPro Elite Security OS v7.0 [Auto-Download Engine]</h1>
-        <div class="status">● ROOT_ACCESS: ACTIVE</div>
+        <h1>YusufxonPro Professional Pentest OS [To'liq O'zbekcha]</h1>
+        <div class="status">● ROOT_HUQUQI: FAOL</div>
     </header>
 
     <div class="toolbar">
-        <button class="tool-btn" onclick="runCmd('help')">help</button>
-        <button class="tool-btn" onclick="runCmd('scan constitution.uz')">scan constitution.uz</button>
-        <button class="tool-btn" onclick="runCmd('sqlmap uzum.uz')">sqlmap uzum.uz</button>
-        <button class="tool-btn" onclick="runCmd('dirsearch kun.uz')">dirsearch kun.uz</button>
-        <button class="tool-btn" onclick="runCmd('dump constitution.uz')">dump db</button>
-        <button class="tool-btn" onclick="runCmd('gallery-grab uzum.uz')">grab gallery</button>
-        <button class="tool-btn" onclick="runCmd('clear')">clear</button>
+        <button class="tool-btn" onclick="runCmd('yordam')">yordam</button>
+        <button class="tool-btn" onclick="runCmd('scan constitution.uz')">constitution.uz tahlili</button>
+        <button class="tool-btn" onclick="runCmd('sqlmap uzum.uz')">uzum.uz sqlmap</button>
+        <button class="tool-btn" onclick="runCmd('dirsearch kun.uz')">kun.uz papkalar</button>
+        <button class="tool-btn" onclick="runCmd('gallery-grab uzum.uz')">rasmlarni tortish</button>
+        <button class="tool-btn" onclick="runCmd('tozalash')">tozalash</button>
     </div>
 
     <div id="terminal-container">
-        <div class="output-line info">Linux yusufxonpro-sec 6.8.0-elite-kernel #1 SMP [Uzbekistan Cyber Shield]</div>
-        <div class="output-line info">10+ Professional hakerlik komandalari yuklandi. Har bir hujum hisoboti avtomatik kompyuteringizga yuklab olinadi (.txt).</div>
-        <div class="output-line info">Barcha buyruqlarni ko'rish uchun <span class="cyan">help</span> deb yozing.</div>
+        <div class="output-line info">Linux yusufxonpro-sec 6.8.0-elite-kernel [O'zbekiston Kiberxavfsizlik Qalqoni]</div>
+        <div class="output-line info">Barcha hakerlik modullari yashirin rejimda (Stealth) ishga tushdi.</div>
+        <div class="output-line info">Barcha buyruqlarni ko'rish uchun <span class="cyan">yordam</span> deb yozing.</div>
         <br>
     </div>
 
@@ -97,8 +96,8 @@
         const suggestionsBox = document.getElementById('suggestions');
 
         const availableCommands = [
-            'help', 'scan', 'sqlmap', 'dirsearch', 'nikto', 
-            'dump', 'gallery-grab', 'brute', 'payload', 'audit', 'clear'
+            'yordam', 'scan', 'sqlmap', 'dirsearch', 'nikto', 
+            'dump', 'gallery-grab', 'brute', 'payload', 'audit', 'tozalash'
         ];
 
         function authenticate() {
@@ -109,7 +108,7 @@
                 inputBox.style.display = 'flex';
                 input.focus();
             } else {
-                authError.textContent = "[-] Xato parol! (Parol: root)";
+                authError.textContent = "[-] Xato parol! (Asosiy parol: root)";
             }
         }
 
@@ -121,7 +120,7 @@
             if (!val) { suggestionsBox.style.display = 'none'; return; }
             const filtered = availableCommands.filter(c => c.startsWith(val));
             if (filtered.length > 0 && val !== filtered[0]) {
-                suggestionsBox.innerHTML = filtered.map(f => `<div class="suggestion-item" onclick="selectSuggestion('${f}')">${f} [target]</div>`).join('');
+                suggestionsBox.innerHTML = filtered.map(f => `<div class="suggestion-item" onclick="selectSuggestion('${f}')">${f} [domen]</div>`).join('');
                 suggestionsBox.style.display = 'block';
             } else { suggestionsBox.style.display = 'none'; }
         });
@@ -164,7 +163,7 @@
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        // Brauzer orqali kompyuterga fayl yuklab berish (Google Download)
+        // Kompyuterga fayl yuklab berish (Google Download / Papkaga yig'ish)
         function downloadFileToPC(filename, content) {
             const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
             const link = document.createElement('a');
@@ -195,85 +194,43 @@
             const target = parts[1] || 'constitution.uz';
             const targetUrl = target.startsWith('http') ? target : `https://${target}`;
 
-            if (cmd === 'clear') {
+            if (cmd === 'tozalash' || cmd === 'clear') {
                 terminal.innerHTML = '';
                 return;
             }
 
-            if (cmd === 'help') {
-                printOutput("================ 10+ ELITE HACKING COMMANDS ================", "success");
-                printOutput("  1. scan [domen]      - Portlar va xizmatlarni to'liq skanerlash");
-                printOutput("  2. sqlmap [domen]    - Ma'lumotlar bazasi injeksiya nuqtalarini yorish");
-                printOutput("  3. dirsearch [domen] - Yashirin papkalar va .env fayllarni topish");
-                printOutput("  4. nikto [domen]     - Server xavfsizlik sarlavhalarini tekshirish");
-                printOutput("  5. dump [domen]      - Ma'lumotlar bazasini to'liq ko'chirib olish (DB Dump)");
-                printOutput("  6. gallery-grab [dom]- Saytdagi rasmlar va galereyalarni o'g'irlash / saqlash");
-                printOutput("  7. brute [domen]     - Admin parollarini brute-force qilish");
-                printOutput("  8. payload [domen]   - Reverse shell payload va bot skriptini yuborish");
-                printOutput("  9. audit [domen]     - Kompleks xavfsizlik reytingini aniqlash");
-                printOutput(" 10. clear             - Ekranni tozalash");
+            if (cmd === 'yordam' || cmd === 'help') {
+                printOutput("================ BARCHA O'ZBEKCHA HAKERLIK BUYRUQLARI ================", "success");
+                printOutput("  1. scan [domen]      - Portlar va xizmatlarni to'liq tahlil qilish");
+                printOutput("  2. sqlmap [domen]    - Ma'lumotlar bazasini yorib kirish (SQLi)");
+                printOutput("  3. dirsearch [domen] - Yashirin papka va .env fayllarni topish");
+                printOutput("  4. nikto [domen]     - Veb-server xavfsizlik sarlavhalarini tekshirish");
+                printOutput("  5. dump [domen]      - Bazadagi barcha ma'lumotlarni ko'chirib olish");
+                printOutput("  6. gallery-grab [dom]- Saytdagi barcha rasmlar va media fayllarni tortib olish");
+                printOutput("  7. brute [domen]     - Admin parolini bildirmasdan sindirish (Brute-force)");
+                printOutput("  8. payload [domen]   - Yashirin shell va bot orqali kirish");
+                printOutput("  9. audit [domen]     - To'liq penetratsiya hisobotini chiqarish");
+                printOutput(" 10. tozalash          - Ekranni tozalash");
                 return;
             }
 
             if (cmd === 'scan') {
                 simulateProgress([
-                    `[+] Nmap engine initializing for target: ${target}...`,
-                    `[+] Resolving DNS -> IP for ${target}...`,
-                    `[+] Scanning ports (80, 443, 22, 3306, 8080)...`
+                    `[+] Nmap skaneri targetga qarshi yashirin rejimda ishga tushdi: ${target}...`,
+                    `[+] DNS va IP manzillar aniqlanmoqda...`,
+                    `[+] Ochiq portlar va himoya devorlari chetlab o'tilmoqda...`
                 ], () => {
-                    const reportText = `[NMAP REPORT - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nPorts: 80(http), 443(https), 22(ssh), 3306(mysql)\nStatus: VULNERABLE\nDetails: Firewall bypassed.`;
-                    downloadFileToPC(`scan_${target.replace('.','_')}.txt`, reportText);
+                    const reportText = `[TAHLIL HISOBOTI - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nHolati: TO'LIQ BUZILDI\nOchiq Portlar: 80(http), 443(https), 22(ssh), 3306(mysql)\nQalqon: Muvaffaqiyatli chetlab o'tildi.`;
+                    downloadFileToPC(`tahlil_${target.replace('.','_')}.txt`, reportText);
 
                     printHtml(`
                         <div class="report-box">
-                            <div class="report-header">🛡️ NMAP SCAN REPORT: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
-                            <div class="output-line success">PORT     STATE SERVICE     VERSION</div>
-                            <div class="output-line">80/tcp   open  http        nginx/1.18.0</div>
-                            <div class="output-line success">443/tcp  open  ssl/http    Cloudflare Secure Proxy</div>
-                            <div class="output-line error">3306/tcp open  mysql       MySQL Database (Exposed)</div>
-                            <div class="output-line cyan">[SUCCESS] Fayl kompyuteringizga yuklab olindi! Live link: <a href="${targetUrl}" target="_blank">${targetUrl}</a></div>
-                        </div>
-                    `);
-                });
-                return;
-            }
-
-            if (cmd === 'sqlmap' || cmd === 'dump') {
-                simulateProgress([
-                    `[ext] SQLMap & Database Dumper running on ${target}...`,
-                    `[~] Bypassing WAF and extracting table contents...`,
-                    `[+] Tables found: users, admins, passports, passwords`
-                ], () => {
-                    const reportText = `[SQLMAP DUMP REPORT - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nVulnerability: Boolean-based blind SQLi\nExtracted Tables:\n - admins (user: root, pass_hash: $2y$10$998877)\n - users (total: 45,210 records)`;
-                    downloadFileToPC(`sqlmap_dump_${target.replace('.','_')}.txt`, reportText);
-
-                    printHtml(`
-                        <div class="report-box">
-                            <div class="report-header">💉 SQLMAP & DB DUMP REPORT: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
-                            <div class="output-line error">[CRITICAL] Database successfully dumped!</div>
-                            <div class="output-line success">[+] Extracted tables: admins, users, secure_tokens</div>
-                            <div class="output-line cyan">[SUCCESS] Ma'lumotlar bazasi fayli kompyuteringizga yuklandi!</div>
-                        </div>
-                    `);
-                });
-                return;
-            }
-
-            if (cmd === 'dirsearch') {
-                simulateProgress([
-                    `[*] Dirsearch multi-threaded fuzzer running on ${target}...`,
-                    `[+] Scanning sensitive paths and config files...`
-                ], () => {
-                    const reportText = `[DIRSEARCH REPORT - ${target.toUpperCase()}]\n- /robots.txt [200]\n- /admin/login.php [200]\n- /.env [CRITICAL DB CREDENTIALS]\n- /backup.sql.gz [FOUND]`;
-                    downloadFileToPC(`dirsearch_${target.replace('.','_')}.txt`, reportText);
-
-                    printHtml(`
-                        <div class="report-box">
-                            <div class="report-header">📁 DIRSEARCH RESULTS: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
-                            <div class="output-line success">  [200] <a href="${targetUrl}/robots.txt" target="_blank">${targetUrl}/robots.txt</a></div>
-                            <div class="output-line warning">  [301] <a href="${targetUrl}/admin/" target="_blank">${targetUrl}/admin/</a> (Admin Panel)</div>
-                            <div class="output-line error">  [200] <a href="${targetUrl}/.env" target="_blank">${targetUrl}/.env</a> (CRITICAL: API Keys Exposed)</div>
-                            <div class="output-line cyan">[SUCCESS] Papkalar hisoboti kompyuterga yuklab olindi!</div>
+                            <div class="report-header">🛡️ PORTLAR VA TARMOQ TAHLILI: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
+                            <div class="output-line success">PORT     HOLATI   XIZMAT       VERSIYA</div>
+                            <div class="output-line">80/tcp   ochiq    http         nginx/1.18.0</div>
+                            <div class="output-line success">443/tcp  ochiq    ssl/http     Cloudflare Secure Proxy</div>
+                            <div class="output-line error">3306/tcp ochiq    mysql        MySQL Database (To'g'ridan-to'g'ri kirildi)</div>
+                            <div class="output-line cyan">[BAJARILDI] Hisobot kompyuteringizga yuklab olindi! Live link: <a href="${targetUrl}" target="_blank">${targetUrl}</a></div>
                         </div>
                     `);
                 });
@@ -282,19 +239,61 @@
 
             if (cmd === 'gallery-grab') {
                 simulateProgress([
-                    `[~] Extracting media files and image assets from ${target}...`,
-                    `[~] Downloading galleries, banners, and documents...`,
-                    `[+] 142 media assets packaged successfully.`
+                    `[~] Saytdagi media va rasm assetlari qidirilmoqda: ${target}...`,
+                    `[~] Yashirin papkalar skanerlanmoqda va rasmlar yig'ilmoqda...`,
+                    `[+] Barcha rasmlar va hujjatlar bitta papkaga yig'ilib arxiflandi!`
                 ], () => {
-                    const reportText = `[GALLERY GRAB REPORT - ${target.toUpperCase()}]\nExtracted Assets:\n- /images/hero_banner.png\n- /uploads/admin_id_card.jpg\n- /documents/secret_constitution_draft.pdf`;
-                    downloadFileToPC(`gallery_assets_${target.replace('.','_')}.txt`, reportText);
+                    const reportText = `[RASMLAR VA MEDIA ARXIVI - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nTopilgan Fayllar:\n- /images/hero_banner_main.png\n- /uploads/admin_profile_photo.jpg\n- /documents/secret_pdf_data.pdf\n- /assets/logo_vector.svg\nStatus: Barchasi muvaffaqiyatli tortib olindi.`;
+                    downloadFileToPC(`${target.replace('.','_')}_rasmlar_papka.txt`, reportText);
 
                     printHtml(`
                         <div class="report-box">
-                            <div class="report-header">🖼️ GALLERY & ASSETS GRABBER: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
-                            <div class="output-line success">[+] 142 ta rasm va hujjatlar topildi.</div>
-                            <div class="output-line warning">[+] Maxfiy fayllar yig'ilib archive qilindi.</div>
-                            <div class="output-line cyan">[SUCCESS] Galereya hisoboti kompyuteringizga yuklandi!</div>
+                            <div class="report-header">🖼️ RASMLAR VA MEDIA FAYLLARNI TORTISH: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
+                            <div class="output-line success">[+] Saytdagi barcha rasmlar va hujjatlar topildi.</div>
+                            <div class="output-line warning">[+] Maxfiy fayllar to'liq yig'ilib noutbukingizga yuklandi.</div>
+                            <div class="output-line cyan">[BAJARILDI] "rasmlar_papka.txt" fayli kompyuteringizga tashlandi!</div>
+                        </div>
+                    `);
+                });
+                return;
+            }
+
+            if (cmd === 'sqlmap' || cmd === 'dump') {
+                simulateProgress([
+                    `[ext] Ma'lumotlar bazasini yorish moduli ishga tushdi (${target})...`,
+                    `[~] WAF (Himoya tizimi) sezmasdan chetlab o'tilmoqda...`,
+                    `[+] Bazadagi barcha jadvallar va parollar o'qib olindi!`
+                ], () => {
+                    const reportText = `[BAZA DUMP HISOBOTI - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nHolat: Ma'lumotlar to'liq o'g'irlandi\nJadvallar:\n - admins (foydalanuvchi: root, parol: $2y$10$998877)\n - users (jami: 85,420 ta yozuv)`;
+                    downloadFileToPC(`baza_dump_${target.replace('.','_')}.txt`, reportText);
+
+                    printHtml(`
+                        <div class="report-box">
+                            <div class="report-header">💉 BAZANI YORISH VA DUMP QILISH: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
+                            <div class="output-line error">[MUHAFAZA BUZILDI] Ma'lumotlar bazasi bildirmasdan tortib olindi!</div>
+                            <div class="output-line success">[+] Olingan jadvallar: admins, users, secure_tokens</div>
+                            <div class="output-line cyan">[BAJARILDI] Baza fayli kompyuteringizga yuklandi!</div>
+                        </div>
+                    `);
+                });
+                return;
+            }
+
+            if (cmd === 'dirsearch') {
+                simulateProgress([
+                    `[*] Yashirin papkalar va fayllar qidirilmoqda (${target})...`,
+                    `[+] Serverdagi config va backup fayllar tekshirilmoqda...`
+                ], () => {
+                    const reportText = `[YASHIRIN PAPKALAR - ${target.toUpperCase()}]\n- /robots.txt [200]\n- /admin/login.php [200]\n- /.env [MAXFIY API KALITLAR TOPILDI]\n- /backup_db.sql.gz [YUKLAB OLISHGA TAYYOR]`;
+                    downloadFileToPC(`papkalar_${target.replace('.','_')}.txt`, reportText);
+
+                    printHtml(`
+                        <div class="report-box">
+                            <div class="report-header">📁 YASHIRIN PAPKALAR VA FAYLLAR: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
+                            <div class="output-line success">  [200] <a href="${targetUrl}/robots.txt" target="_blank">${targetUrl}/robots.txt</a></div>
+                            <div class="output-line warning">  [301] <a href="${targetUrl}/admin/" target="_blank">${targetUrl}/admin/</a> (Admin Panel)</div>
+                            <div class="output-line error">  [200] <a href="${targetUrl}/.env" target="_blank">${targetUrl}/.env</a> (MAXFIY KALITLAR OSHKOR BO'LDI)</div>
+                            <div class="output-line cyan">[BAJARILDI] Papkalar ro'yxati yuklab olindi!</div>
                         </div>
                     `);
                 });
@@ -303,25 +302,25 @@
 
             if (cmd === 'nikto' || cmd === 'brute' || cmd === 'payload' || cmd === 'audit') {
                 simulateProgress([
-                    `[~] Executing module '${cmd}' against ${target}...`,
-                    `[~] Bypassing target security shields...`,
-                    `[+] Operation completed successfully.`
+                    `[~] '${cmd}' moduli orqali targetga hujum uyushtirilmoqda...`,
+                    `[~] Himoya devorlari bildirmasdan buzib o'tildi...`,
+                    `[+] Operatsiya muvaffaqiyatli yakunlandi.`
                 ], () => {
-                    const reportText = `[${cmd.toUpperCase()} REPORT - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nStatus: Compromised / Audited\nDetails: Multiple security headers missing. Full access token granted.`;
-                    downloadFileToPC(`${cmd}_report_${target.replace('.','_')}.txt`, reportText);
+                    const reportText = `[${cmd.toUpperCase()} HISOBOTI - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nHolat: Muvaffaqiyatli buzib kirildi\nMa'lumot: Barcha cheklovlar chetlab o'tildi va to'liq ruxsat olindi.`;
+                    downloadFileToPC(`${cmd}_hisobot_${target.replace('.','_')}.txt`, reportText);
 
                     printHtml(`
                         <div class="report-box">
-                            <div class="report-header">⚡ ${cmd.toUpperCase()} REPORT: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
-                            <div class="output-line error"> [!] Target successfully audited/compromised via ${cmd}.</div>
-                            <div class="output-line cyan">[SUCCESS] To'liq hisobot fayli kompyuteringizga yuklab olindi!</div>
+                            <div class="report-header">⚡ ${cmd.toUpperCase()} OPERATSIYASI: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
+                            <div class="output-line error"> [!] Target muvaffaqiyatli yorib o'tildi va nazoratga olindi.</div>
+                            <div class="output-line cyan">[BAJARILDI] Hisobot kompyuteringizga yuklab olindi!</div>
                         </div>
                     `);
                 });
                 return;
             }
 
-            printOutput(`Xato: '${cmd}' buyruqi topilmadi. 'help' deb yozing.`, "error");
+            printOutput(`Xato: '${cmd}' buyruqi topilmadi. Barcha buyruqlarni ko'rish uchun 'yordam' deb yozing.`, "error");
         }
     </script>
 </body>
