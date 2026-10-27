@@ -3,50 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YusufxonPro - Advanced Security & Audit Terminal</title>
+    <title>YusufxonPro - Advanced Cyber Audit & Attack Simulation Terminal</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; }
-        body { background-color: #050505; color: #00ff66; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
-        header { background: #111; border-bottom: 2px solid #00ff66; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
-        header h1 { font-size: 1.2rem; text-shadow: 0 0 10px #00ff66; }
-        .status { font-size: 0.85rem; color: #ff3333; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0.3; } }
+        body { background-color: #030303; color: #00ff66; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        header { background: #0c0c0c; border-bottom: 2px solid #00ff66; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 1.1rem; text-shadow: 0 0 8px #00ff66; }
+        .status { font-size: 0.8rem; color: #00ffff; }
         
-        #terminal-container { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; scroll-behavior: smooth; }
-        .output-line { margin-bottom: 8px; line-height: 1.4; white-space: pre-wrap; word-break: break-all; }
-        .error { color: #ff4444; }
-        .success { color: #00ffff; }
-        .warning { color: #ffaa00; }
-        .info { color: #ffffff; }
-        
-        #input-box { background: #0a0a0a; border-top: 1px solid #222; padding: 15px 20px; display: flex; align-items: center; }
-        .prompt-symbol { color: #00ff66; font-weight: bold; margin-right: 10px; }
-        #command-input { flex: 1; background: transparent; border: none; color: #00ff66; font-size: 1rem; outline: none; font-family: 'Courier New', Courier, monospace; }
-        
-        .toolbar { background: #0f0f0f; padding: 8px 20px; display: flex; gap: 10px; border-bottom: 1px solid #222; flex-wrap: wrap; }
-        .tool-btn { background: #1a1a1a; border: 1px solid #00ff66; color: #00ff66; padding: 5px 12px; font-size: 0.8rem; cursor: pointer; border-radius: 3px; transition: 0.2s; }
+        .toolbar { background: #080808; padding: 6px 20px; display: flex; gap: 8px; border-bottom: 1px solid #1a1a1a; flex-wrap: wrap; }
+        .tool-btn { background: #121212; border: 1px solid #00ff66; color: #00ff66; padding: 4px 10px; font-size: 0.75rem; cursor: pointer; border-radius: 3px; transition: 0.2s; }
         .tool-btn:hover { background: #00ff66; color: #000; }
+        
+        #terminal-container { flex: 1; padding: 15px 20px; overflow-y: auto; display: flex; flex-direction: column; scroll-behavior: smooth; }
+        .output-line { margin-bottom: 6px; line-height: 1.35; white-space: pre-wrap; word-break: break-all; font-size: 0.9rem; }
+        .error { color: #ff3333; }
+        .success { color: #00ffff; }
+        .warning { color: #ffbb00; }
+        .info { color: #ffffff; }
+        .highlight { color: #00ff66; font-weight: bold; }
+        
+        #input-box { background: #080808; border-top: 1px solid #222; padding: 12px 20px; display: flex; align-items: center; }
+        .prompt-symbol { color: #00ff66; font-weight: bold; margin-right: 10px; font-size: 0.9rem; }
+        #command-input { flex: 1; background: transparent; border: none; color: #00ff66; font-size: 0.95rem; outline: none; font-family: 'Courier New', Courier, monospace; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>YusufxonPro // CYBER SECURITY & AUDIT SUITE v4.2</h1>
-        <div class="status">● SECURE_CHANNEL_ACTIVE</div>
+        <h1>YusufxonPro // LINUX SECURITY AUDIT & TARGET ATTACK SUITE v5.0</h1>
+        <div class="status">● ROOT_PRIVILEGES_ACTIVE</div>
     </header>
 
     <div class="toolbar">
-        <button class="tool-btn" onclick="runPreset('help')">help</button>
-        <button class="tool-btn" onclick="runPreset('nmap scan target.com')">nmap scan</button>
-        <button class="tool-btn" onclick="runPreset('sqlmap -u target.com --dbs')">sqlmap audit</button>
-        <button class="tool-btn" onclick="runPreset('nikto -h target.com')">nikto vulnerability</button>
-        <button class="tool-btn" onclick="runPreset('gobuster dir -u target.com')">gobuster fuzz</button>
-        <button class="tool-btn" onclick="runPreset('clear')">clear</button>
+        <button class="tool-btn" onclick="runPreset('help')">yordam (help)</button>
+        <button class="tool-btn" onclick="runPreset('attack example.com')">target attack</button>
+        <button class="tool-btn" onclick="runPreset('nmap scan target.com')">nmap port scan</button>
+        <button class="tool-btn" onclick="runPreset('sqlmap -u target.com --dbs')">sql injection</button>
+        <button class="tool-btn" onclick="runPreset('nikto -h target.com')">vulnerability audit</button>
+        <button class="tool-btn" onclick="runPreset('dirb http://target.com')">directory fuzz</button>
+        <button class="tool-btn" onclick="runPreset('clear')">ekranni tozalash</button>
     </div>
 
     <div id="terminal-container">
-        <div class="output-line info">YusufxonPro Security Terminal OS [Version 2026.4.1]</div>
-        <div class="output-line info">Type 'help' to see available security audit & analysis commands. Type 'audit [url]' to test a target.</div>
+        <div class="output-line info">Linux Security Kernel 6.8.0-yusufxonpro x86_64 [O'zbekiston Kiberxavfsizlik Muhiti]</div>
+        <div class="output-line info">Saytlarni tahlil qilish va zaifliklarni aniqlash uchun buyruq kiriting. Masalan: <span class="highlight">attack uzum.uz</span> yoki <span class="highlight">help</span></div>
         <br>
     </div>
 
@@ -58,15 +59,6 @@
     <script>
         const terminal = document.getElementById('terminal-container');
         const input = document.getElementById('command-input');
-        let commandsConfig = {};
-
-        // Load commands data from local JSON file
-        fetch('commands.json')
-            .then(res => res.json())
-            .then(data => { commandsConfig = data; })
-            .catch(err => {
-                printOutput("Warning: External commands.json not found, using internal fallback engine.", "warning");
-            });
 
         input.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
@@ -98,7 +90,7 @@
                 if (i < steps.length) {
                     printOutput(steps[i], "warning");
                     i++;
-                    setTimeout(nextStep, 400);
+                    setTimeout(nextStep, 350);
                 } else {
                     callback();
                 }
@@ -109,7 +101,7 @@
         function processCommand(fullCmd) {
             const parts = fullCmd.split(' ');
             const cmd = parts[0].toLowerCase();
-            const target = parts[1] || 'localhost';
+            const target = parts[1] || 'target-domain.com';
 
             if (cmd === 'clear') {
                 terminal.innerHTML = '';
@@ -117,65 +109,71 @@
             }
 
             if (cmd === 'help') {
-                printOutput("Available Security & Audit Commands:", "success");
-                printOutput("  nmap [target]          - Scan open ports and detect vulnerabilities");
-                printOutput("  sqlmap [target]        - Detect SQL Injection points and database structures");
-                printOutput("  nikto [target]         - Scan web servers for outdated software & misconfigurations");
-                printOutput("  gobuster [target]      - Fuzz directories and hidden admin files");
-                printOutput("  audit [target]         - Comprehensive security audit test suite");
-                printOutput("  whoami                 - Display current security session user");
-                printOutput("  clear                  - Clear terminal screen");
+                printOutput("Mavjud xavfsizlik va hujum buyruqlari (O'zbek tilida):", "success");
+                printOutput("  attack [domen]         - Ko'rsatilgan saytga to'liq hujum va zaiflik auditini boshlash");
+                printOutput("  nmap [domen]           - Ochiq portlar va xizmat versiyalarini skanerlash");
+                printOutput("  sqlmap [domen]         - Ma'lumotlar bazasidan SQL injection qidirish");
+                printOutput("  nikto [domen]          - Veb-server xavfsizlik kamchiliklarini tekshirish");
+                printOutput("  dirb [url]             - Yashirin kataloglar va fayllarni qidirish");
+                printOutput("  ls /var/reports        - Saqlangan hisobotlar papkasini ko'rish");
+                printOutput("  clear                  - Terminalni tozalash");
                 return;
             }
 
-            if (cmd === 'whoami') {
-                printOutput("root (Authorized Security Auditor - YusufxonPro)", "success");
+            if (cmd === 'ls' && parts[1]?.includes('reports')) {
+                printOutput("[SAVED REPORTS FOLDER] /var/reports/:\n - target_audit_report.txt\n - sqlmap_dump_tables.sql\n - screenshot_target.png\n - vulnerability_matrix.json", "success");
                 return;
             }
 
-            // Check if JSON commands config has a response
-            if (commandsConfig[cmd]) {
-                const cfg = commandsConfig[cmd];
-                simulateProgress(cfg.steps, () => {
-                    printOutput(cfg.result.replace("{target}", target), "success");
+            if (cmd === 'attack') {
+                simulateProgress([
+                    `[+] [1/5] Target aniqlandi: ${target} - DNS va IP manzillar yechilmoqda...`,
+                    `[+] [2/5] Nmap orqali ochiq portlar (80, 443, 22, 3306) tekshirilmoqda...`,
+                    `[+] [3/5] HTTP sarlavhalari (Headers) va SSL sertifikatlari tahlil qilinmoqda...`,
+                    `[+] [4/5] SQL injection va XSS zaiflik nuqtalari qidirilmoqda...`,
+                    `[+] [5/5] Natijalar /var/reports/ papkasiga log va rasm (png) sifatida yozilmoqda...`
+                ], () => {
+                    printOutput(`\n[TAHLIL NATIJASI - ${target.toUpperCase()}]`, "success");
+                    printOutput(` - Holat: Sayt himoyasi o'rtacha darajada.`, "warning");
+                    printOutput(` - Topilgan zaifliklar:`, "error");
+                    printOutput(`   1. X-Frame-Options himoyasi mavjud emas (Clickjacking xavfi).`);
+                    printOutput(`   2. Eskirgan server versiyasi (Nginx/1.18.0) aniqlandi.`);
+                    printOutput(`   3. /robots.txt faylida yashirin admin papkalari oshkor bo'lgan.`);
+                    printOutput(` - Saqlangan papka: /var/reports/target_audit_report.txt va screenshot_target.png`, "success");
                 });
                 return;
             }
 
-            // Default simulated modules
             if (cmd === 'nmap') {
                 simulateProgress([
-                    `[+] Starting Nmap scan against ${target}...`,
-                    `[+] Resolving hostname ${target}...`,
-                    `[+] Discovered open ports: 80/tcp (HTTP), 443/tcp (HTTPS), 22/tcp (SSH)`
+                    `[+] Nmap 7.94 skaneri ishga tushirildi (${target})...`,
+                    `[+] TCP portlari tekshirilmoqda...`
                 ], () => {
-                    printOutput(`[SUCCEEDED] Target ${target} scanned. 3 ports open. No critical firewall detected.`, "success");
+                    printOutput(`PORT     STATE SERVICE\n80/tcp   open  http\n443/tcp  open  https\n3306/tcp open  mysql\n[NATIJA] Skanerlash yakunlandi.`, "success");
                 });
             } else if (cmd === 'sqlmap') {
                 simulateProgress([
-                    `[~] Testing connection to ${target}...`,
-                    `[~] Testing GET parameter 'id' for SQL injection...`,
-                    `[!] Vulnerability found: MySQL boolean-based blind injection detected.`
+                    `[~] SQLMap tamper va payloadlar yuklanmoqda...`,
+                    `[~] GET va POST parametrlarida so'rovlar sinovdan o'tkazilmoqda...`
                 ], () => {
-                    printOutput(`[EXPLOIT SUCCESS] Databases extracted: [information_schema, users_db, admin_panel]`, "success");
+                    printOutput(`[ZAIFLIK TOPILDI] Parametr 'id' SQL injection ga moyil! Ma'lumotlar bazasi nomi: 'db_production'. Papkaga yuklandi.`, "success");
                 });
             } else if (cmd === 'nikto') {
                 simulateProgress([
-                    `[+] Initializing Nikto web scanner on ${target}...`,
-                    `[+] Checking HTTP server headers...`,
-                    `[+] Server: nginx/1.18.0 (Outdated version with known CVEs)`
+                    `[+] Nikto veb-skaneri ishga tushdi: ${target}...`,
+                    `[+] 6000 dan ortiq xavfli fayllar tekshirilmoqda...`
                 ], () => {
-                    printOutput(`[REPORT] 2 potential misconfigurations found in /robots.txt and /backup/`, "warning");
+                    printOutput(`[OGOHLANTIRISH] Server katalog indeksatsiyasi (Directory Listing) yoqilgan!`, "error");
                 });
-            } else if (cmd === 'gobuster') {
+            } else if (cmd === 'dirb') {
                 simulateProgress([
-                    `[+] Wordlist loaded: common.txt (4600 words)`,
-                    `[+] Fuzzing directories on ${target}...`
+                    `[+] Wordlist (common.txt) yuklandi...`,
+                    `[+] URL manzillariga so'rovlar yuborilmoqda...`
                 ], () => {
-                    printOutput(`[FOUND] /admin (Status: 200)\n[FOUND] /config.json (Status: 200)\n[FOUND] /.git/HEAD (Status: 403)`, "success");
+                    printOutput(`[TOPILDI] http://${target}/admin/login.php (Code: 200)\n[TOPILDI] http://${target}/backup.sql (Code: 200)`, "success");
                 });
             } else {
-                printOutput(`Command not recognized: '${cmd}'. Type 'help' for command list.`, "error");
+                printOutput(`Xato: '${cmd}' buyruqi topilmadi. Barcha buyruqlarni ko'rish uchun 'help' deb yozing.`, "error");
             }
         }
     </script>
