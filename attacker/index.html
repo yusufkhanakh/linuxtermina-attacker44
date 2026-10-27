@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YusufxonPro Elite Security OS v6.5 [Auto-Complete & Dynamic Target]</title>
+    <title>YusufxonPro Elite Security OS v7.0 [Auto-Download & 10+ Commands]</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; }
         body { background-color: #010409; color: #00ff66; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
@@ -17,11 +17,11 @@
         .auth-btn:hover { background: #2ea043; }
 
         header { background: #0d1117; border-bottom: 2px solid #00ff66; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
-        header h1 { font-size: 0.95rem; text-shadow: 0 0 8px #00ff66; color: #38bdf8; }
+        header h1 { font-size: 0.9rem; text-shadow: 0 0 8px #00ff66; color: #38bdf8; }
         .status { font-size: 0.75rem; color: #34d399; }
         
         .toolbar { background: #161b22; padding: 6px 20px; display: flex; gap: 6px; border-bottom: 1px solid #30363d; flex-wrap: wrap; }
-        .tool-btn { background: #21262d; border: 1px solid #38bdf8; color: #38bdf8; padding: 4px 10px; font-size: 0.7rem; cursor: pointer; border-radius: 3px; transition: 0.2s; }
+        .tool-btn { background: #21262d; border: 1px solid #38bdf8; color: #38bdf8; padding: 4px 8px; font-size: 0.65rem; cursor: pointer; border-radius: 3px; transition: 0.2s; }
         .tool-btn:hover { background: #38bdf8; color: #010409; }
         
         #terminal-container { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; scroll-behavior: smooth; display: none; }
@@ -31,16 +31,14 @@
         .warning { color: #fbbf24; }
         .info { color: #8b949e; }
         .cyan { color: #38bdf8; }
-        .purple { color: #c084fc; }
         a { color: #38bdf8; text-decoration: underline; }
 
         .report-box { border: 1px solid #38bdf8; background: #0d1117; padding: 12px; margin: 8px 0; border-radius: 6px; }
         .report-header { color: #38bdf8; font-weight: bold; border-bottom: 1px solid #30363d; padding-bottom: 4px; margin-bottom: 6px; }
 
-        /* Command Suggestion Box */
         #suggestions { position: absolute; bottom: 55px; left: 20px; background: #161b22; border: 1px solid #30363d; border-radius: 4px; display: none; max-height: 120px; overflow-y: auto; z-index: 10; width: 300px; }
         .suggestion-item { padding: 6px 10px; font-size: 0.8rem; color: #8b949e; cursor: pointer; }
-        .suggestion-item:hover, .suggestion-item.active { background: #21262d; color: #00ff66; }
+        .suggestion-item:hover { background: #21262d; color: #00ff66; }
 
         #input-box { background: #161b22; border-top: 1px solid #30363d; padding: 12px 20px; display: flex; align-items: center; display: none; position: relative; }
         .prompt-symbol { color: #34d399; font-weight: bold; margin-right: 8px; }
@@ -52,7 +50,7 @@
     <!-- AUTH SCREEN -->
     <div id="auth-screen">
         <div class="auth-box">
-            <h2>🔒 YUSUFXONPRO SECURITY KERNEL AUTH</h2>
+            <h2>🔒 YUSUFXONPRO SECURITY KERNEL</h2>
             <div style="font-size: 0.75rem; color: #8b949e; margin-bottom: 10px; text-align: center;">Administrator parolini kiriting (Parol: root)</div>
             <input type="password" id="auth-pass" class="auth-input" placeholder="Enter Root Password..." autofocus>
             <button class="auth-btn" onclick="authenticate()">ACCESS TERMINAL</button>
@@ -61,22 +59,24 @@
     </div>
 
     <header>
-        <h1>YusufxonPro Elite Security OS v6.5 [Dynamic Target Engine]</h1>
+        <h1>YusufxonPro Elite Security OS v7.0 [Auto-Download Engine]</h1>
         <div class="status">● ROOT_ACCESS: ACTIVE</div>
     </header>
 
     <div class="toolbar">
         <button class="tool-btn" onclick="runCmd('help')">help</button>
-        <button class="tool-btn" onclick="runCmd('nmap uzum.uz')">nmap uzum.uz</button>
-        <button class="tool-btn" onclick="runCmd('sqlmap kun.uz')">sqlmap kun.uz</button>
-        <button class="tool-btn" onclick="runCmd('dirsearch uzum.uz')">dirsearch uzum.uz</button>
-        <button class="tool-btn" onclick="runCmd('exploit site.uz')">exploit target</button>
+        <button class="tool-btn" onclick="runCmd('scan constitution.uz')">scan constitution.uz</button>
+        <button class="tool-btn" onclick="runCmd('sqlmap uzum.uz')">sqlmap uzum.uz</button>
+        <button class="tool-btn" onclick="runCmd('dirsearch kun.uz')">dirsearch kun.uz</button>
+        <button class="tool-btn" onclick="runCmd('dump constitution.uz')">dump db</button>
+        <button class="tool-btn" onclick="runCmd('gallery-grab uzum.uz')">grab gallery</button>
         <button class="tool-btn" onclick="runCmd('clear')">clear</button>
     </div>
 
     <div id="terminal-container">
         <div class="output-line info">Linux yusufxonpro-sec 6.8.0-elite-kernel #1 SMP [Uzbekistan Cyber Shield]</div>
-        <div class="output-line info">Avto-to'ldirish va dinamik tahlil faol. Buyruqlar uchun <span class="cyan">help</span> yozing yoki tab bosing.</div>
+        <div class="output-line info">10+ Professional hakerlik komandalari yuklandi. Har bir hujum hisoboti avtomatik kompyuteringizga yuklab olinadi (.txt).</div>
+        <div class="output-line info">Barcha buyruqlarni ko'rish uchun <span class="cyan">help</span> deb yozing.</div>
         <br>
     </div>
 
@@ -96,7 +96,10 @@
         const authError = document.getElementById('auth-error');
         const suggestionsBox = document.getElementById('suggestions');
 
-        const availableCommands = ['help', 'nmap', 'sqlmap', 'dirsearch', 'nikto', 'exploit', 'sniff', 'clear'];
+        const availableCommands = [
+            'help', 'scan', 'sqlmap', 'dirsearch', 'nikto', 
+            'dump', 'gallery-grab', 'brute', 'payload', 'audit', 'clear'
+        ];
 
         function authenticate() {
             const pass = authPass.value.trim();
@@ -112,20 +115,15 @@
 
         authPass.addEventListener('keydown', (e) => { if (e.key === 'Enter') authenticate(); });
 
-        // Auto-complete and Suggestions Logic
+        // Auto-complete
         input.addEventListener('input', () => {
             const val = input.value.trim().toLowerCase();
-            if (!val) {
-                suggestionsBox.style.display = 'none';
-                return;
-            }
+            if (!val) { suggestionsBox.style.display = 'none'; return; }
             const filtered = availableCommands.filter(c => c.startsWith(val));
             if (filtered.length > 0 && val !== filtered[0]) {
                 suggestionsBox.innerHTML = filtered.map(f => `<div class="suggestion-item" onclick="selectSuggestion('${f}')">${f} [target]</div>`).join('');
                 suggestionsBox.style.display = 'block';
-            } else {
-                suggestionsBox.style.display = 'none';
-            }
+            } else { suggestionsBox.style.display = 'none'; }
         });
 
         function selectSuggestion(cmd) {
@@ -143,14 +141,6 @@
                     handleCommand(cmd);
                     input.value = '';
                 }
-            } else if (e.key === 'Tab') {
-                e.preventDefault();
-                const val = input.value.trim().toLowerCase();
-                const match = availableCommands.find(c => c.startsWith(val));
-                if (match) {
-                    input.value = match + ' uzum.uz';
-                }
-                suggestionsBox.style.display = 'none';
             }
         });
 
@@ -174,6 +164,17 @@
             terminal.scrollTop = terminal.scrollHeight;
         }
 
+        // Brauzer orqali kompyuterga fayl yuklab berish (Google Download)
+        function downloadFileToPC(filename, content) {
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
         function simulateProgress(steps, callback) {
             let i = 0;
             function next() {
@@ -191,7 +192,8 @@
         function handleCommand(fullCmd) {
             const parts = fullCmd.split(' ');
             const cmd = parts[0].toLowerCase();
-            const target = parts[1] || 'uzum.uz'; // Default target agar kiritilmasa
+            const target = parts[1] || 'constitution.uz';
+            const targetUrl = target.startsWith('http') ? target : `https://${target}`;
 
             if (cmd === 'clear') {
                 terminal.innerHTML = '';
@@ -199,53 +201,58 @@
             }
 
             if (cmd === 'help') {
-                printOutput("================ YUSUFXONPRO ELITE COMMANDS ================", "success");
-                printOutput("  nmap [domen]       - Portlar va xizmat versiyalarini skanerlash");
-                printOutput("  sqlmap [domen]     - Ma'lumotlar bazasi (SQLi) va injeksiya nuqtalarini topish");
-                printOutput("  dirsearch [domen]  - Yashirin papkalar, configlar va admin yo'llarini topish");
-                printOutput("  nikto [domen]      - Veb-server xavfsizlik sarlavhalari va xatolarini tekshirish");
-                printOutput("  exploit [domen]    - Avtomatik zaiflikni yorib kirish va payload yuborish");
-                printOutput("  clear              - Ekranni tozalash");
+                printOutput("================ 10+ ELITE HACKING COMMANDS ================", "success");
+                printOutput("  1. scan [domen]      - Portlar va xizmatlarni to'liq skanerlash");
+                printOutput("  2. sqlmap [domen]    - Ma'lumotlar bazasi injeksiya nuqtalarini yorish");
+                printOutput("  3. dirsearch [domen] - Yashirin papkalar va .env fayllarni topish");
+                printOutput("  4. nikto [domen]     - Server xavfsizlik sarlavhalarini tekshirish");
+                printOutput("  5. dump [domen]      - Ma'lumotlar bazasini to'liq ko'chirib olish (DB Dump)");
+                printOutput("  6. gallery-grab [dom]- Saytdagi rasmlar va galereyalarni o'g'irlash / saqlash");
+                printOutput("  7. brute [domen]     - Admin parollarini brute-force qilish");
+                printOutput("  8. payload [domen]   - Reverse shell payload va bot skriptini yuborish");
+                printOutput("  9. audit [domen]     - Kompleks xavfsizlik reytingini aniqlash");
+                printOutput(" 10. clear             - Ekranni tozalash");
                 return;
             }
 
-            // Dinamik target linklarini shakllantirish
-            const targetUrl = target.startsWith('http') ? target : `https://${target}`;
-
-            if (cmd === 'nmap') {
+            if (cmd === 'scan') {
                 simulateProgress([
                     `[+] Nmap engine initializing for target: ${target}...`,
-                    `[+] Resolving DNS -> IP: 104.21.${Math.floor(Math.random()*200)}.${Math.floor(Math.random()*255)}`,
-                    `[+] Scanning ports and services for ${targetUrl}...`
+                    `[+] Resolving DNS -> IP for ${target}...`,
+                    `[+] Scanning ports (80, 443, 22, 3306, 8080)...`
                 ], () => {
+                    const reportText = `[NMAP REPORT - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nPorts: 80(http), 443(https), 22(ssh), 3306(mysql)\nStatus: VULNERABLE\nDetails: Firewall bypassed.`;
+                    downloadFileToPC(`scan_${target.replace('.','_')}.txt`, reportText);
+
                     printHtml(`
                         <div class="report-box">
-                            <div class="report-header">🛡️ NMAP REPORT: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
+                            <div class="report-header">🛡️ NMAP SCAN REPORT: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
                             <div class="output-line success">PORT     STATE SERVICE     VERSION</div>
                             <div class="output-line">80/tcp   open  http        nginx/1.18.0</div>
                             <div class="output-line success">443/tcp  open  ssl/http    Cloudflare Secure Proxy</div>
-                            <div class="output-line warning">22/tcp   open  ssh         OpenSSH 8.2p1</div>
                             <div class="output-line error">3306/tcp open  mysql       MySQL Database (Exposed)</div>
-                            <div class="output-line cyan">[-] Target Link: <a href="${targetUrl}" target="_blank">${targetUrl}</a></div>
+                            <div class="output-line cyan">[SUCCESS] Fayl kompyuteringizga yuklab olindi! Live link: <a href="${targetUrl}" target="_blank">${targetUrl}</a></div>
                         </div>
                     `);
                 });
                 return;
             }
 
-            if (cmd === 'sqlmap') {
+            if (cmd === 'sqlmap' || cmd === 'dump') {
                 simulateProgress([
-                    `[ext] SQLMap analyzing parameters on ${target}...`,
-                    `[~] Testing GET/POST parameters for SQL Injection...`,
-                    `[+] Target vulnerable: ${targetUrl}`
+                    `[ext] SQLMap & Database Dumper running on ${target}...`,
+                    `[~] Bypassing WAF and extracting table contents...`,
+                    `[+] Tables found: users, admins, passports, passwords`
                 ], () => {
+                    const reportText = `[SQLMAP DUMP REPORT - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nVulnerability: Boolean-based blind SQLi\nExtracted Tables:\n - admins (user: root, pass_hash: $2y$10$998877)\n - users (total: 45,210 records)`;
+                    downloadFileToPC(`sqlmap_dump_${target.replace('.','_')}.txt`, reportText);
+
                     printHtml(`
                         <div class="report-box">
-                            <div class="report-header">💉 SQLMAP REPORT: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
-                            <div class="output-line error">[CRITICAL] Injection found on <a href="${targetUrl}" target="_blank">${targetUrl}</a></div>
-                            <div class="output-line success">[+] Database: PostgreSQL 13.4 (${target} prod)</div>
-                            <div class="output-line warning">[+] Tables found: users, admins, transactions, tokens</div>
-                            <div class="output-line cyan">[-] Logs saved to /var/reports/sqlmap_${target}.log</div>
+                            <div class="report-header">💉 SQLMAP & DB DUMP REPORT: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
+                            <div class="output-line error">[CRITICAL] Database successfully dumped!</div>
+                            <div class="output-line success">[+] Extracted tables: admins, users, secure_tokens</div>
+                            <div class="output-line cyan">[SUCCESS] Ma'lumotlar bazasi fayli kompyuteringizga yuklandi!</div>
                         </div>
                     `);
                 });
@@ -254,35 +261,60 @@
 
             if (cmd === 'dirsearch') {
                 simulateProgress([
-                    `[*] Dirsearch scanning directories on ${target}...`,
-                    `[+] Fuzzing files: .env, robots.txt, backup.sql, admin/`
+                    `[*] Dirsearch multi-threaded fuzzer running on ${target}...`,
+                    `[+] Scanning sensitive paths and config files...`
                 ], () => {
+                    const reportText = `[DIRSEARCH REPORT - ${target.toUpperCase()}]\n- /robots.txt [200]\n- /admin/login.php [200]\n- /.env [CRITICAL DB CREDENTIALS]\n- /backup.sql.gz [FOUND]`;
+                    downloadFileToPC(`dirsearch_${target.replace('.','_')}.txt`, reportText);
+
                     printHtml(`
                         <div class="report-box">
                             <div class="report-header">📁 DIRSEARCH RESULTS: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
                             <div class="output-line success">  [200] <a href="${targetUrl}/robots.txt" target="_blank">${targetUrl}/robots.txt</a></div>
-                            <div class="output-line success">  [200] <a href="${targetUrl}/sitemap.xml" target="_blank">${targetUrl}/sitemap.xml</a></div>
                             <div class="output-line warning">  [301] <a href="${targetUrl}/admin/" target="_blank">${targetUrl}/admin/</a> (Admin Panel)</div>
-                            <div class="output-line error">  [200] <a href="${targetUrl}/.env" target="_blank">${targetUrl}/.env</a> (CRITICAL: API Keys & DB Passwords)</div>
-                            <div class="output-line cyan">[-] Target active link: <a href="${targetUrl}" target="_blank">${targetUrl}</a></div>
+                            <div class="output-line error">  [200] <a href="${targetUrl}/.env" target="_blank">${targetUrl}/.env</a> (CRITICAL: API Keys Exposed)</div>
+                            <div class="output-line cyan">[SUCCESS] Papkalar hisoboti kompyuterga yuklab olindi!</div>
                         </div>
                     `);
                 });
                 return;
             }
 
-            if (cmd === 'nikto' || cmd === 'exploit' || cmd === 'sniff') {
+            if (cmd === 'gallery-grab') {
                 simulateProgress([
-                    `[~] Executing security audit module against ${target}...`,
-                    `[~] Bypassing security headers and WAF...`,
-                    `[+] Audit completed successfully for ${targetUrl}`
+                    `[~] Extracting media files and image assets from ${target}...`,
+                    `[~] Downloading galleries, banners, and documents...`,
+                    `[+] 142 media assets packaged successfully.`
                 ], () => {
+                    const reportText = `[GALLERY GRAB REPORT - ${target.toUpperCase()}]\nExtracted Assets:\n- /images/hero_banner.png\n- /uploads/admin_id_card.jpg\n- /documents/secret_constitution_draft.pdf`;
+                    downloadFileToPC(`gallery_assets_${target.replace('.','_')}.txt`, reportText);
+
                     printHtml(`
                         <div class="report-box">
-                            <div class="report-header">⚡ ADVANCED AUDIT REPORT: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
-                            <div class="output-line error"> [!] X-Frame-Options missing on <a href="${targetUrl}" target="_blank">${target}</a></div>
-                            <div class="output-line warning"> [!] Server banner disclosure active</div>
-                            <div class="output-line success"> [+] Target verified and logged. Live link: <a href="${targetUrl}" target="_blank">${targetUrl}</a></div>
+                            <div class="report-header">🖼️ GALLERY & ASSETS GRABBER: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
+                            <div class="output-line success">[+] 142 ta rasm va hujjatlar topildi.</div>
+                            <div class="output-line warning">[+] Maxfiy fayllar yig'ilib archive qilindi.</div>
+                            <div class="output-line cyan">[SUCCESS] Galereya hisoboti kompyuteringizga yuklandi!</div>
+                        </div>
+                    `);
+                });
+                return;
+            }
+
+            if (cmd === 'nikto' || cmd === 'brute' || cmd === 'payload' || cmd === 'audit') {
+                simulateProgress([
+                    `[~] Executing module '${cmd}' against ${target}...`,
+                    `[~] Bypassing target security shields...`,
+                    `[+] Operation completed successfully.`
+                ], () => {
+                    const reportText = `[${cmd.toUpperCase()} REPORT - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nStatus: Compromised / Audited\nDetails: Multiple security headers missing. Full access token granted.`;
+                    downloadFileToPC(`${cmd}_report_${target.replace('.','_')}.txt`, reportText);
+
+                    printHtml(`
+                        <div class="report-box">
+                            <div class="report-header">⚡ ${cmd.toUpperCase()} REPORT: <a href="${targetUrl}" target="_blank">${target.toUpperCase()}</a></div>
+                            <div class="output-line error"> [!] Target successfully audited/compromised via ${cmd}.</div>
+                            <div class="output-line cyan">[SUCCESS] To'liq hisobot fayli kompyuteringizga yuklab olindi!</div>
                         </div>
                     `);
                 });
