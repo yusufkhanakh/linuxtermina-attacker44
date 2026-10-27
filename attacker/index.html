@@ -3,52 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YusufxonPro - Advanced Security OS Terminal</title>
+    <title>YusufxonPro - Elite Cyber Security & Pentest Terminal</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; }
-        body { background-color: #030712; color: #00ff66; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
-        header { background: #0f172a; border-bottom: 2px solid #00ff66; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
-        header h1 { font-size: 1.1rem; text-shadow: 0 0 10px #00ff66; color: #38bdf8; }
-        .status { font-size: 0.8rem; color: #34d399; }
+        body { background-color: #02040a; color: #00ff66; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        header { background: #0b0f19; border-bottom: 2px solid #00ff66; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 1rem; text-shadow: 0 0 8px #00ff66; color: #38bdf8; }
+        .status { font-size: 0.75rem; color: #34d399; }
         
-        .toolbar { background: #090d16; padding: 8px 20px; display: flex; gap: 8px; border-bottom: 1px solid #1e293b; flex-wrap: wrap; }
-        .tool-btn { background: #1e293b; border: 1px solid #38bdf8; color: #38bdf8; padding: 5px 12px; font-size: 0.75rem; cursor: pointer; border-radius: 4px; transition: 0.2s; }
-        .tool-btn:hover { background: #38bdf8; color: #0f172a; }
+        .toolbar { background: #060913; padding: 6px 20px; display: flex; gap: 6px; border-bottom: 1px solid #1e293b; flex-wrap: wrap; }
+        .tool-btn { background: #1e293b; border: 1px solid #38bdf8; color: #38bdf8; padding: 4px 10px; font-size: 0.7rem; cursor: pointer; border-radius: 3px; transition: 0.2s; }
+        .tool-btn:hover { background: #38bdf8; color: #02040a; }
         
-        #terminal-container { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; scroll-behavior: smooth; }
-        .output-line { margin-bottom: 6px; line-height: 1.4; white-space: pre-wrap; word-break: break-all; font-size: 0.9rem; }
+        #terminal-container { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; scroll-behavior: smooth; }
+        .output-line { margin-bottom: 5px; line-height: 1.3; white-space: pre-wrap; word-break: break-all; font-size: 0.85rem; }
         .error { color: #f87171; }
         .success { color: #34d399; }
         .warning { color: #fbbf24; }
-        .info { color: #f1f5f9; }
+        .info { color: #94a3b8; }
         .cyan { color: #38bdf8; }
+        .purple { color: #c084fc; }
 
-        /* Preview card styling */
-        .preview-box { border: 1px dashed #38bdf8; background: #0b1329; padding: 12px; margin: 10px 0; border-radius: 6px; }
-        .preview-title { color: #38bdf8; font-weight: bold; margin-bottom: 6px; border-bottom: 1px solid #1e293b; padding-bottom: 4px; }
+        /* Report & Preview box */
+        .report-box { border: 1px solid #38bdf8; background: #080f1e; padding: 10px; margin: 8px 0; border-radius: 4px; }
+        .report-header { color: #38bdf8; font-weight: bold; border-bottom: 1px solid #1e293b; padding-bottom: 4px; margin-bottom: 6px; }
 
-        #input-box { background: #090d16; border-top: 1px solid #1e293b; padding: 15px 20px; display: flex; align-items: center; }
-        .prompt-symbol { color: #34d399; font-weight: bold; margin-right: 10px; }
-        #command-input { flex: 1; background: transparent; border: none; color: #00ff66; font-size: 1rem; outline: none; font-family: 'Courier New', Courier, monospace; }
+        #input-box { background: #060913; border-top: 1px solid #1e293b; padding: 12px 20px; display: flex; align-items: center; }
+        .prompt-symbol { color: #34d399; font-weight: bold; margin-right: 8px; }
+        #command-input { flex: 1; background: transparent; border: none; color: #00ff66; font-size: 0.95rem; outline: none; font-family: 'Courier New', Courier, monospace; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Linux Security Kernel 6.8.0-yusufxonpro x86_64 [O'zbekiston Kiberxavfsizlik]</h1>
-        <div class="status">● SECURE_MODE_ACTIVE</div>
+        <h1>YusufxonPro Pentest OS v4.2 [Root Access Granted]</h1>
+        <div class="status">● TARGET_SCANNER: ACTIVE</div>
     </header>
 
     <div class="toolbar">
-        <button class="tool-btn" onclick="runPreset('help')">help</button>
-        <button class="tool-btn" onclick="runPreset('attack kun.uz')">attack kun.uz</button>
-        <button class="tool-btn" onclick="runPreset('attack uzum.uz')">attack uzum.uz</button>
-        <button class="tool-btn" onclick="runPreset('attack yusufxonpro.uz')">attack yusufxonpro.uz</button>
-        <button class="tool-btn" onclick="runPreset('clear')">clear</button>
+        <button class="tool-btn" onclick="runCmd('help')">help</button>
+        <button class="tool-btn" onclick="runCmd('scan kun.uz')">scan kun.uz</button>
+        <button class="tool-btn" onclick="runCmd('dirsearch uzum.uz')">dirsearch uzum.uz</button>
+        <button class="tool-btn" onclick="runCmd('admin-finder site.uz')">admin-finder</button>
+        <button class="tool-btn" onclick="runCmd('clear')">clear</button>
     </div>
 
     <div id="terminal-container">
-        <div class="output-line info">Saytlarni tahlil qilish va zaifliklarni aniqlash uchun buyruq kiriting. Masalan: <span class="cyan">attack uzum.uz</span> yoki <span class="cyan">help</span></div>
+        <div class="output-line info">YusufxonPro Security Framework ishga tushdi. Saytlarni chuqur tahlil qilish uchun buyruq kiriting.</div>
+        <div class="output-line info">Masalan: <span class="cyan">scan [domen]</span> yoki <span class="cyan">dirsearch [domen]</span></div>
         <br>
     </div>
 
@@ -66,15 +68,15 @@
                 const cmd = input.value.trim();
                 if (cmd) {
                     printOutput("root@yusufxonpro-sec:~# " + cmd, "info");
-                    processCommand(cmd);
+                    handleCommand(cmd);
                     input.value = '';
                 }
             }
         });
 
-        function runPreset(cmdStr) {
+        function runCmd(cmdStr) {
             printOutput("root@yusufxonpro-sec:~# " + cmdStr, "info");
-            processCommand(cmdStr);
+            handleCommand(cmdStr);
         }
 
         function printOutput(text, type = "success") {
@@ -85,77 +87,31 @@
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        function printHtml(htmlContent) {
+        function printHtml(html) {
             const div = document.createElement('div');
-            div.innerHTML = htmlContent;
+            div.innerHTML = html;
             terminal.appendChild(div);
             terminal.scrollTop = terminal.scrollHeight;
         }
 
         function simulateProgress(steps, callback) {
             let i = 0;
-            function nextStep() {
+            function next() {
                 if (i < steps.length) {
                     printOutput(steps[i], "warning");
                     i++;
-                    setTimeout(nextStep, 300);
+                    setTimeout(next, 250);
                 } else {
                     callback();
                 }
             }
-            nextStep();
+            next();
         }
 
-        // Har xil saytlar uchun turlicha dinamik natijalar generatsiyasi
-        function getDynamicAuditResult(domain) {
-            const d = domain.toLowerCase();
-            
-            let ip = "185.199.108.153";
-            let serverType = "Nginx / 1.18.0";
-            let risk = "O'rtacha (Moderate Risk)";
-            let ports = "80/tcp (open), 443/tcp (open), 22/tcp (filtered)";
-            let vulns = [];
-
-            if (d.includes("kun")) {
-                ip = "91.213.232.11";
-                serverType = "cloudflare / Enterprise Proxy";
-                risk = "Past (Low Risk - Kuchli himoya)";
-                ports = "80/tcp (open), 443/tcp (open), 8080/tcp (open)";
-                vulns = [
-                    "1. Cookie bayroqlarida 'HttpOnly' qisman yetishmaydi.",
-                    "2. Eski HTTP/1.1 protokoli orqali cache poisoning ehtimoli.",
-                    "3. Ochiq directory listing aniqlanmadi (Himoyalangan)."
-                ];
-            } else if (d.includes("uzum")) {
-                ip = "104.18.26.19";
-                serverType = "Cloudflare Web Server";
-                risk = "Minimal (High Security)";
-                ports = "443/tcp (open), 8443/tcp (open)";
-                vulns = [
-                    "1. CORS siyosatida ruxsat etilgan domain kengroq olingan.",
-                    "2. Rate-limiting (so'rovlar sonini cheklash) ba'zi API'larda sozlanmagan.",
-                    "3. Server versiyasi to'liq yashiringan."
-                ];
-            } else {
-                // Tasodifiy yoki maxsus kiritilgan domainlar uchun
-                ip = `${Math.floor(Math.random()*200)+15}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.10`;
-                serverType = "Apache / 2.4.41 (Ubuntu)";
-                risk = "Yuqori (High Vulnerability)";
-                ports = "21/tcp (open), 22/tcp (open), 80/tcp (open), 3306/tcp (open)";
-                vulns = [
-                    "1. X-Frame-Options va HSTS sarlavhalari mavjud emas (Clickjacking xavfi).",
-                    "2. MySQL (3306) porti tashqi tarmoqqa ochiq qolgan!",
-                    "3. /backup.sql fayli ochiq manzada topildi."
-                ];
-            }
-
-            return { ip, serverType, risk, ports, vulns };
-        }
-
-        function processCommand(fullCmd) {
+        function handleCommand(fullCmd) {
             const parts = fullCmd.split(' ');
             const cmd = parts[0].toLowerCase();
-            const target = parts[1] || 'example.uz';
+            const target = parts[1] || 'target-system.uz';
 
             if (cmd === 'clear') {
                 terminal.innerHTML = '';
@@ -163,41 +119,70 @@
             }
 
             if (cmd === 'help') {
-                printOutput("Mavjud buyruqlar:", "success");
-                printOutput("  attack [domen]  - Ko'rsatilgan saytni chuqur tahlil qilish va zaifliklarni topish");
-                printOutput("  clear           - Ekranni tozalash");
+                printOutput("Mavjud hakerlik va tahlil buyruqlari:", "success");
+                printOutput("  scan [domen]          - Saytning portlari, SSL va sarlavhalarini to'liq skanerlash");
+                printOutput("  dirsearch [domen]     - Yashirin papkalar va fayllarni topish (Gobuster moduli)");
+                printOutput("  admin-finder [domen]  - Yashirin admin panel va login sahifalarini qidirish");
+                printOutput("  clear                 - Ekranni tozalash");
                 return;
             }
 
-            if (cmd === 'attack') {
+            if (cmd === 'scan') {
                 simulateProgress([
-                    `[+] [1/5] Target aniqlandi: ${target} - DNS va IP manzillar yechilmoqda...`,
-                    `[+] [2/5] Nmap orqali ochiq portlar va xizmatlar tekshirilmoqda...`,
-                    `[+] [3/5] HTTP sarlavhalari (Headers) va SSL sertifikatlari tahlil qilinmoqda...`,
-                    `[+] [4/5] SQL injection va XSS zaiflik nuqtalari qidirilmoqda...`,
-                    `[+] [5/5] Natijalar /var/reports/ papkasiga log va rasm (png) sifatida yozilmoqda...`
+                    `[+] [1/4] Target halokatli nuqtalari qidirilmoqda: ${target}...`,
+                    `[+] [2/4] TCP portlar skanerlanmoqda (80, 443, 22, 3306, 8080)...`,
+                    `[+] [3/4] SSL/TLS sertifikat imzolari va shifrlash tahlili bajarilmoqda...`,
+                    `[+] [4/4] Xavfsizlik sarlavhalari (Headers) tekshirilmoqda...`
                 ], () => {
-                    const res = getDynamicAuditResult(target);
-                    
-                    let vulnText = res.vulns.map(v => `   ${v}`).join('\n');
-
-                    printOutput(`\n[TAHLIL NATIJASI - ${target.toUpperCase()}]`, "success");
-                    printOutput(` - IP Manzil: ${res.ip}`);
-                    printOutput(` - Server Dasturi: ${res.serverType}`);
-                    printOutput(` - Ochiq Portlar: ${res.ports}`);
-                    printOutput(` - Xavfsizlik Holati: ${res.risk}`);
-                    printOutput(` - Topilgan zaifliklar:\n${vulnText}`, "error");
-                    printOutput(` - Saqlangan papka: /var/reports/audit_${target.replace('.', '_')}.txt`, "warning");
-
-                    // Jonli Preview (Rasm/Interfeys ko'rinishi) simulyatsiyasi
                     printHtml(`
-                        <div class="preview-box">
-                            <div class="preview-title">📷 TARGET PREVIEW & SCREENSHOT [${target.toUpperCase()}]</div>
-                            <div style="font-size: 0.8rem; color: #34d399;">
-                                Status: 200 OK | SSL: Valid (Let's Encrypt)<br>
-                                Render Snapshot: <span style="color: #f87171;">/var/reports/screenshot_${target.replace('.', '_')}.png</span><br>
-                                <i>Sayt dizayni va xavfsizlik qatlami tahlil qilindi. Ma'lumotlar logga yozildi.</i>
-                            </div>
+                        <div class="report-box">
+                            <div class="report-header">🛡️ VULNERABILITY AUDIT REPORT: ${target.toUpperCase()}</div>
+                            <div class="output-line success">[-] Status: Target faol va ochiq portlar aniqlandi.</div>
+                            <div class="output-line error">[-] Aniqolangan zaifliklar (Vulnerabilities):</div>
+                            <div class="output-line warning">  • X-Frame-Options: MAVJUD EMAS (Clickjacking xavfi yuqori)</div>
+                            <div class="output-line warning">  • Server Header: nginx/1.18.0 (Eskirgan versiya oshkor bo'lmoqda)</div>
+                            <div class="output-line error">  • CORS Policy: Access-Control-Allow-Origin: * (Ma'lumot sizishi mumkin)</div>
+                            <div class="output-line cyan">[-] Tavsiya: Sarlavhalarni to'g'rilang va server versiyasini yashiring.</div>
+                        </div>
+                    `);
+                });
+                return;
+            }
+
+            if (cmd === 'dirsearch') {
+                simulateProgress([
+                    `[*] Wordlist yuklandi: common_paths.txt (2500 ta so'z)`,
+                    `[*] Fuzzing jarayoni boshlandi: https://${target}/ ...`,
+                    `[+] 200 - OK - /index.php`,
+                    `[+] 301 - Moved - /assets/`,
+                    `[+] 200 - OK - /robots.txt`,
+                    `[+] 403 - Forbidden - /admin/`
+                ], () => {
+                    printHtml(`
+                        <div class="report-box">
+                            <div class="report-header">📁 DIRSEARCH / HIDDEN PATHS FOUND: ${target.toUpperCase()}</div>
+                            <div class="output-line success">  [200] https://${target}/robots.txt</div>
+                            <div class="output-line success">  [200] https://${target}/sitemap.xml</div>
+                            <div class="output-line warning">  [301] https://${target}/backup/ (Folder topildi!)</div>
+                            <div class="output-line error">  [200] https://${target}/config.json.bak (DIQQAT: Zaxira fayl ochiq!)</div>
+                            <div class="output-line cyan">  [403] https://${target}/administrator/ (Admin kirish joyi)</div>
+                        </div>
+                    `);
+                });
+                return;
+            }
+
+            if (cmd === 'admin-finder') {
+                simulateProgress([
+                    `[~] Admin panel qidirish algoritmi ishga tushdi...`,
+                    `[~] /admin, /login, /wp-admin, /dashboard tekshirilmoqda...`
+                ], () => {
+                    printHtml(`
+                        <div class="report-box">
+                            <div class="report-header">🔑 ADMIN PANEL DISCOVERY: ${target.toUpperCase()}</div>
+                            <div class="output-line success">  [TOPILDI] https://${target}/admin/login.php</div>
+                            <div class="output-line success">  [TOPILDI] https://${target}/auth/signin</div>
+                            <div class="output-line warning">  [OGOHLANTIRISH] Brute-force himoyasi (Captcha) o'rnatilmagan!</div>
                         </div>
                     `);
                 });
