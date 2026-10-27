@@ -1,14 +1,5 @@
 {
-  "attack_suite": {
-    "version": "5.0",
-    "author": "YusufxonPro",
-    "description": "Kiberxavfsizlik va sayt audit tizimi",
-    "storage_folder": "/var/reports/",
-    "features": [
-      "Port scanning",
-      "SQL Injection detection",
-      "Directory fuzzing",
-      "Screenshot and report export"
-    ]
-  }
+  "system": "YusufxonPro Security Suite",
+  "status": "Operational",
+  "mode": "Educational & Ethical Penetration Testing"
 }
