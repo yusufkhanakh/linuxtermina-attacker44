@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YusufxonPro Elite Security OS v8.0 [Interactive Download Confirmation]</title>
+    <title>YusufxonPro Elite Security OS v8.1 [1-4MB Heavy Dump]</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace; }
         body { background-color: #010409; color: #00ff66; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
         
-        /* Auth Screen */
         #auth-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #010409; z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
         .auth-box { border: 2px solid #00ff66; background: #0d1117; padding: 30px; border-radius: 8px; width: 100%; max-width: 450px; box-shadow: 0 0 20px rgba(0,255,102,0.3); }
         .auth-box h2 { color: #38bdf8; font-size: 1.1rem; margin-bottom: 15px; text-align: center; }
@@ -47,11 +46,10 @@
 </head>
 <body>
 
-    <!-- AUTH SCREEN -->
     <div id="auth-screen">
         <div class="auth-box">
             <h2>🔒 YUSUFXONPRO XAVFSIZLIK TIZIMI</h2>
-            <div style="font-size: 0.75rem; color: #8b949e; margin-bottom: 10px; text-align: center;">Administrator parolini kiriting (Parol: root)</div>
+            <div style="font-size: 0.75rem; color: #8b949e; margin-bottom: 10px; text-align: center;">Parolni kiriting (Parol: root)</div>
             <input type="password" id="auth-pass" class="auth-input" placeholder="Parolni kiriting..." autofocus>
             <button class="auth-btn" onclick="authenticate()">TIZIMGA KIRISH</button>
             <div id="auth-error" style="color: #f87171; font-size: 0.75rem; text-align: center; margin-top: 8px;"></div>
@@ -59,23 +57,22 @@
     </div>
 
     <header>
-        <h1>YusufxonPro Professional Pentest OS [Interaktiv Tasdiqlash]</h1>
+        <h1>YusufxonPro Professional Pentest OS [1-4MB Heavy Dump]</h1>
         <div class="status">● ROOT_HUQUQI: FAOL</div>
     </header>
 
     <div class="toolbar">
         <button class="tool-btn" onclick="runCmd('yordam')">yordam</button>
         <button class="tool-btn" onclick="runCmd('scan constitution.uz')">constitution.uz tahlili</button>
-        <button class="tool-btn" onclick="runCmd('sqlmap uzum.uz')">uzum.uz sqlmap</button>
-        <button class="tool-btn" onclick="runCmd('dirsearch kun.uz')">kun.uz papkalar</button>
+        <button class="tool-btn" onclick="runCmd('sqlmap emaktab.uz')">emaktab.uz sqlmap</button>
+        <button class="tool-btn" onclick="runCmd('dump emaktab.uz')">baza dump</button>
         <button class="tool-btn" onclick="runCmd('gallery-grab uzum.uz')">rasmlarni tortish</button>
         <button class="tool-btn" onclick="runCmd('tozalash')">tozalash</button>
     </div>
 
     <div id="terminal-container">
-        <div class="output-line info">Linux yusufxonpro-sec 6.8.0-elite-kernel [O'zbekiston Kiberxavfsizlik Qalqoni]</div>
-        <div class="output-line info">Yuklab olishdan oldin terminaldan ruxsat so'rash moduli yoqildi.</div>
-        <div class="output-line info">Barcha buyruqlarni ko'rish uchun <span class="cyan">yordam</span> deb yozing.</div>
+        <div class="output-line info">Linux yusufxonpro-sec 6.8.0-elite-kernel [Og'ir ma'lumotlar bazasi rejimi]</div>
+        <div class="output-line info">Barcha hisobotlar endi 1 MB - 4 MB hajmda yaratiladi.</div>
         <br>
     </div>
 
@@ -95,7 +92,7 @@
         const authError = document.getElementById('auth-error');
         const suggestionsBox = document.getElementById('suggestions');
 
-        let pendingDownload = null; // Yuklab olishni tasdiqlash uchun vaqtinchalik xotira
+        let pendingDownload = null;
 
         const availableCommands = [
             'yordam', 'scan', 'sqlmap', 'dirsearch', 'nikto', 
@@ -110,15 +107,14 @@
                 inputBox.style.display = 'flex';
                 input.focus();
             } else {
-                authError.textContent = "[-] Xato parol! (Asosiy parol: root)";
+                authError.textContent = "[-] Xato parol! (Parol: root)";
             }
         }
 
         authPass.addEventListener('keydown', (e) => { if (e.key === 'Enter') authenticate(); });
 
-        // Auto-complete
         input.addEventListener('input', () => {
-            if (pendingDownload !== null) return; // Tasdiqlash vaqtida auto-complete ishlamasin
+            if (pendingDownload !== null) return;
             const val = input.value.trim().toLowerCase();
             if (!val) { suggestionsBox.style.display = 'none'; return; }
             const filtered = availableCommands.filter(c => c.startsWith(val));
@@ -166,9 +162,14 @@
             terminal.scrollTop = terminal.scrollHeight;
         }
 
-        // Haqiqiy yuklab berish funksiyasi
+        // 1 MB - 4 MB hajmdagi real og'ir faylni yaratish funksiyasi
         function downloadFileToPC(filename, content) {
-            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            let heavyContent = content + "\n\n--- HEAVY DATABASE RECORDS DUMP (1MB - 4MB) ---\n";
+            for (let i = 1; i <= 35000; i++) {
+                let r = Math.random().toString(36).substring(2);
+                heavyContent += `[ROW #${i}] user_id: ${30000+i} | username: client_${r} | pass_hash: $2y$10$${r}${r} | email: user_${i}@gov.uz | ip_address: 192.168.${i%255}.${i%200} | status: active\n`;
+            }
+            const blob = new Blob([heavyContent], { type: 'text/plain;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = filename;
@@ -177,14 +178,13 @@
             document.body.removeChild(link);
         }
 
-        // Yuklab olishdan oldin terminaldan ruxsat so'rash
         function requestDownload(filename, content) {
             pendingDownload = { filename, content };
             printHtml(`
                 <div class="report-box" style="border-color: #fbbf24;">
-                    <div class="report-header" style="color: #fbbf24;">⚠️ FAYLNI KOMPYUTERGA YUKLAB OLISH SO'ROVI</div>
-                    <div class="output-line warning">[?] Ushbu hisobotni ("${filename}") kompyuterga yuklab olasizmi?</div>
-                    <div class="output-line success">Iltimos, javob bering: <span class="cyan">ha</span> yoki <span class="error">yo'q</span></div>
+                    <div class="report-header" style="color: #fbbf24;">⚠️ OG'IR BAZA FAYLINI YUKLAB OLISH (1-4 MB)</div>
+                    <div class="output-line warning">[?] Ushbu katta hajmli bazani ("${filename}") kompyuterga yuklab olasizmi?</div>
+                    <div class="output-line success">Javob bering: <span class="cyan">ha</span> yoki <span class="error">yo'q</span></div>
                 </div>
             `);
         }
@@ -206,24 +206,23 @@
         function handleCommand(fullCmd) {
             const cmdLower = fullCmd.toLowerCase().trim();
 
-            // Agar fayl yuklab olish uchun "ha" yoki "yo'q" kutilayotgan bo'lsa
             if (pendingDownload !== null) {
                 if (cmdLower === 'ha' || cmdLower === 'h') {
                     downloadFileToPC(pendingDownload.filename, pendingDownload.content);
-                    printOutput(`[+] "${pendingDownload.filename}" kompyuterga muvaffaqiyatli yuklab olindi!`, "success");
+                    printOutput(`[+] "${pendingDownload.filename}" (Hajmi ~2-4 MB) kompyuterga muvaffaqiyatli yuklab olindi!`, "success");
                     pendingDownload = null;
-                } else if (cmdLower === "yo'q" || cmdLower === 'yoq' || cmdLower === 'y') {
-                    printOutput(`[-] Faylni yuklab olish bekor qilindi.`, "warning");
+                } else if (cmdLower === "yo'q" || cmdLower === 'yoq' || cmd_lower === 'y') {
+                    printOutput(`[-] Yuklab olish bekor qilindi.`, "warning");
                     pendingDownload = null;
                 } else {
-                    printOutput(`[!] Noto'g'ri javob. Iltimos, faqat 'ha' yoki 'yo'q' deb yozing:`, "error");
+                    printOutput(`[!] Noto'g'ri javob. Iltimos, 'ha' yoki 'yo'q' deb yozing:`, "error");
                 }
                 return;
             }
 
             const parts = fullCmd.split(' ');
             const cmd = parts[0].toLowerCase();
-            const target = parts[1] || 'constitution.uz';
+            const target = parts[1] || 'emaktab.uz';
             const targetUrl = target.startsWith('http') ? target : `https://${target}`;
 
             if (cmd === 'tozalash' || cmd === 'clear') {
@@ -232,80 +231,23 @@
             }
 
             if (cmd === 'yordam' || cmd === 'help') {
-                printOutput("================ O'ZBEKCHA HAKERLIK BUYRUQLARI ================", "success");
-                printOutput("  1. scan [domen]      - Portlar va xizmatlarni to'liq tahlil qilish");
-                printOutput("  2. sqlmap [domen]    - Ma'lumotlar bazasini yorib kirish (SQLi)");
-                printOutput("  3. dirsearch [domen] - Yashirin papka va .env fayllarni topish");
-                printOutput("  4. nikto [domen]     - Veb-server xavfsizlik sarlavhalarini tekshirish");
-                printOutput("  5. dump [domen]      - Bazadagi ma'lumotlarni ko'chirib olish");
-                printOutput("  6. gallery-grab [dom]- Rasmlar va media fayllarni tortib olish");
-                printOutput("  7. brute [domen]     - Admin parolini sindirish (Brute-force)");
-                printOutput("  8. payload [domen]   - Yashirin shell va bot orqali kirish");
-                printOutput("  9. audit [domen]     - To'liq penetratsiya hisoboti");
-                printOutput(" 10. tozalash          - Ekranni tozalash");
+                printOutput("================ HAKERLIK BUYRUQLARI ================", "success");
+                printOutput("  scan, sqlmap, dirsearch, nikto, dump, gallery-grab, tozalash");
                 return;
             }
 
-            if (cmd === 'scan') {
+            if (cmd === 'scan' || cmd === 'sqlmap' || cmd === 'dump' || cmd === 'gallery-grab' || cmd === 'payload') {
                 simulateProgress([
-                    `[+] Nmap skaneri targetga qarshi yashirin rejimda ishga tushdi: ${target}...`,
-                    `[+] DNS va IP manzillar aniqlanmoqda...`,
-                    `[+] Ochiq portlar va himoya devorlari chetlab o'tilmoqda...`
+                    `[+] Modul ishga tushdi va ${target} nishonga olindi...`,
+                    `[+] Ma'lumotlar bazasi va jadvallar yig'ilmoqda (1-4 MB)...`
                 ], () => {
-                    const reportText = `[TAHLIL HISOBOTI - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nHolati: TO'LIQ BUZILDI\nOchiq Portlar: 80(http), 443(https), 22(ssh), 3306(mysql)`;
-                    requestDownload(`tahlil_${target.replace('.','_')}.txt`, reportText);
+                    const reportText = `[OG'IR DUMP HISOBOTI - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nHolat: Ma'lumotlar bazasi to'liq tortib olindi.\nJadvallar: admins, users, logs`;
+                    requestDownload(`baza_ogir_dump_${target.replace('.','_')}.txt`, reportText);
                 });
                 return;
             }
 
-            if (cmd === 'gallery-grab') {
-                simulateProgress([
-                    `[~] Saytdagi media va rasm assetlari qidirilmoqda: ${target}...`,
-                    `[~] Yashirin papkalar skanerlanmoqda va rasmlar yig'ilmoqda...`,
-                    `[+] Barcha rasmlar va hujjatlar bitta papkaga yig'ilib arxiflandi!`
-                ], () => {
-                    const reportText = `[RASMLAR VA MEDIA ARXIVI - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nTopilgan Fayllar:\n- /images/hero_banner.png\n- /uploads/admin_photo.jpg\n- /documents/secret.pdf`;
-                    requestDownload(`${target.replace('.','_')}_rasmlar_papka.txt`, reportText);
-                });
-                return;
-            }
-
-            if (cmd === 'sqlmap' || cmd === 'dump') {
-                simulateProgress([
-                    `[ext] Ma'lumotlar bazasini yorish moduli ishga tushdi (${target})...`,
-                    `[~] WAF (Himoya tizimi) sezmasdan chetlab o'tilmoqda...`,
-                    `[+] Bazadagi barcha jadvallar va parollar o'qib olindi!`
-                ], () => {
-                    const reportText = `[BAZA DUMP HISOBOTI - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nHolat: Ma'lumotlar o'g'irlandi\nJadvallar: admins, users`;
-                    requestDownload(`baza_dump_${target.replace('.','_')}.txt`, reportText);
-                });
-                return;
-            }
-
-            if (cmd === 'dirsearch') {
-                simulateProgress([
-                    `[*] Yashirin papkalar va fayllar qidirilmoqda (${target})...`,
-                    `[+] Serverdagi config va backup fayllar tekshirilmoqda...`
-                ], () => {
-                    const reportText = `[YASHIRIN PAPKALAR - ${target.toUpperCase()}]\n- /robots.txt [200]\n- /admin/login.php [200]\n- /.env [MAXFIY KALITLAR]`;
-                    requestDownload(`papkalar_${target.replace('.','_')}.txt`, reportText);
-                });
-                return;
-            }
-
-            if (cmd === 'nikto' || cmd === 'brute' || cmd === 'payload' || cmd === 'audit') {
-                simulateProgress([
-                    `[~] '${cmd}' moduli orqali targetga hujum uyushtirilmoqda...`,
-                    `[~] Himoya devorlari bildirmasdan buzib o'tildi...`,
-                    `[+] Operatsiya muvaffaqiyatli yakunlandi.`
-                ], () => {
-                    const reportText = `[${cmd.toUpperCase()} HISOBOTI - ${target.toUpperCase()}]\nTarget: ${targetUrl}\nHolat: Muvaffaqiyatli buzib kirildi`;
-                    requestDownload(`${cmd}_hisobot_${target.replace('.','_')}.txt`, reportText);
-                });
-                return;
-            }
-
-            printOutput(`Xato: '${cmd}' buyruqi topilmadi. Barcha buyruqlarni ko'rish uchun 'yordam' deb yozing.`, "error");
+            printOutput(`Xato: '${cmd}' topilmadi. 'yordam' deb yozing.`, "error");
         }
     </script>
 </body>
